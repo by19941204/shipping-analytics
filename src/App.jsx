@@ -16,7 +16,7 @@ export default function App() {
   return (
     <ThemeProvider>
       <LanguageProvider>
-        <BrowserRouter>
+        <BrowserRouter basename={import.meta.env.BASE_URL}>
           <WatchlistProvider>
             <Routes>
               <Route element={<Layout />}>
