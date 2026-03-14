@@ -36,9 +36,9 @@ const TABS = ['overview', 'financials', 'fleet', 'news', 'esg'];
 function RevenueTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="rounded-lg border border-slate-700 bg-slate-800/95 backdrop-blur-sm px-3 py-2 shadow-xl">
-      <p className="text-xs text-slate-400">{label}</p>
-      <p className="text-sm font-semibold text-white">
+    <div className="rounded-lg border border-[var(--border-color)] bg-[var(--bg-card)]/95 backdrop-blur-sm px-3 py-2 shadow-xl">
+      <p className="text-xs text-[var(--text-secondary)]">{label}</p>
+      <p className="text-sm font-semibold text-[var(--text-primary)]">
         {formatNumber(payload[0].value)}
       </p>
     </div>
@@ -79,10 +79,10 @@ export default function CompanyDetail() {
 
   if (!company) {
     return (
-      <div className="flex min-h-screen items-center justify-center bg-[#0b0e17]">
+      <div className="flex min-h-screen items-center justify-center bg-[var(--bg-primary)]">
         <div className="text-center">
-          <p className="text-4xl font-bold text-slate-600">404</p>
-          <p className="mt-2 text-slate-400">{t('company.notFound')}</p>
+          <p className="text-4xl font-bold text-[var(--text-muted)]">404</p>
+          <p className="mt-2 text-[var(--text-secondary)]">{t('company.notFound')}</p>
           <Link
             to="/companies"
             className="mt-4 inline-flex items-center gap-1 text-sm text-blue-400 hover:text-blue-300"
@@ -106,7 +106,7 @@ export default function CompanyDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0e17] px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[var(--bg-primary)] px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-5xl">
         <Breadcrumbs items={[
           { label: t('breadcrumb.home'), path: '/' },
@@ -115,19 +115,19 @@ export default function CompanyDetail() {
         ]} />
 
         {/* Header Card */}
-        <div className="mb-6 rounded-xl border border-slate-800/60 bg-[#111827] p-6">
+        <div className="mb-6 rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-6">
           <div className="flex flex-col gap-6 sm:flex-row sm:items-start sm:justify-between">
             {/* Company Identity */}
             <div className="flex items-center gap-4">
               <span className="text-4xl">{company.logo}</span>
               <div>
                 <div className="flex items-center gap-2">
-                  <h1 className="text-xl font-bold text-white sm:text-2xl">
+                  <h1 className="text-xl font-bold text-[var(--text-primary)] sm:text-2xl">
                     {company.name[language]}
                   </h1>
                   <WatchlistButton companyId={company.id} />
                 </div>
-                <p className="text-sm text-slate-400">
+                <p className="text-sm text-[var(--text-secondary)]">
                   {company.ticker} {countryFlags[company.country]}
                 </p>
               </div>
@@ -135,7 +135,7 @@ export default function CompanyDetail() {
 
             {/* Stock Price */}
             <div className="text-left sm:text-right">
-              <p className="text-2xl font-bold text-white">
+              <p className="text-2xl font-bold text-[var(--text-primary)]">
                 {formatCurrency(company.stockPrice, company.currency)}
               </p>
               <span
@@ -151,7 +151,7 @@ export default function CompanyDetail() {
           </div>
 
           {/* Quick Stats */}
-          <div className="mt-6 grid grid-cols-2 gap-4 border-t border-slate-800/60 pt-5 sm:grid-cols-4">
+          <div className="mt-6 grid grid-cols-2 gap-4 border-t border-[var(--border-color)] pt-5 sm:grid-cols-4">
             <QuickStat label={t('company.marketCap')} value={formatMarketCap(company.marketCap, language)} />
             <QuickStat label={t('company.peRatio')} value={`${company.peRatio}x`} />
             <QuickStat label={t('company.dividendYield')} value={`${company.dividendYield}%`} />
@@ -160,15 +160,15 @@ export default function CompanyDetail() {
         </div>
 
         {/* Tab Navigation */}
-        <div className="mb-6 flex gap-1 overflow-x-auto rounded-xl border border-slate-800/60 bg-[#111827] p-1.5">
+        <div className="mb-6 flex gap-1 overflow-x-auto rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-1.5">
           {TABS.map((tab) => (
             <button
               key={tab}
               onClick={() => setActiveTab(tab)}
               className={`whitespace-nowrap rounded-lg px-4 py-2 text-sm font-medium transition-all duration-200 cursor-pointer ${
                 activeTab === tab
-                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/25'
-                  : 'text-slate-400 hover:bg-white/5 hover:text-white'
+                  ? 'bg-blue-600 text-[var(--text-primary)] shadow-lg shadow-blue-600/25'
+                  : 'text-[var(--text-secondary)] hover:bg-white/5 hover:text-[var(--text-primary)]'
               }`}
             >
               {tabLabels[tab]}
@@ -180,8 +180,8 @@ export default function CompanyDetail() {
         {activeTab === 'overview' && (
           <div className="space-y-6">
             {/* Stock Chart */}
-            <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
-              <h2 className="mb-4 text-sm font-semibold text-white">
+            <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
+              <h2 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">
                 {t('company.stockPrice')}
               </h2>
               <StockChart
@@ -193,15 +193,15 @@ export default function CompanyDetail() {
             </div>
 
             {/* Description */}
-            <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
-              <h2 className="mb-3 text-sm font-semibold text-white">{t('company.about')}</h2>
-              <p className="text-sm leading-relaxed text-slate-300">
+            <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
+              <h2 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">{t('company.about')}</h2>
+              <p className="text-sm leading-relaxed text-[var(--text-primary)]">
                 {company.description[language]}
               </p>
             </div>
 
             {/* Key Info */}
-            <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
+            <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                 <InfoRow icon={Calendar} label={t('company.founded')} value={company.founded} />
                 <InfoRow icon={Building2} label={t('company.headquarters')} value={company.headquarters[language]} />
@@ -226,29 +226,29 @@ export default function CompanyDetail() {
             </div>
 
             {/* Key Investment Metrics */}
-            <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
-              <h2 className="mb-4 text-sm font-semibold text-white">{t('company.keyInvestmentMetrics')}</h2>
+            <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
+              <h2 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">{t('company.keyInvestmentMetrics')}</h2>
               <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-                <div className="rounded-lg bg-slate-900/50 border border-slate-800/40 p-4">
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('company.evEbitda')}</p>
-                  <p className="mt-1 text-xl font-bold text-white">
+                <div className="rounded-lg bg-[var(--bg-primary)]/50 border border-[var(--border-color)] p-4">
+                  <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('company.evEbitda')}</p>
+                  <p className="mt-1 text-xl font-bold text-[var(--text-primary)]">
                     {((company.marketCap / (company.currency === 'JPY' || company.currency === 'KRW' ? 1e6 : 1) + company.netDebt) / company.ebitda).toFixed(1)}x
                   </p>
-                  <p className="mt-1 text-[10px] text-slate-500">{t('company.evEbitdaDesc')}</p>
+                  <p className="mt-1 text-[10px] text-[var(--text-muted)]">{t('company.evEbitdaDesc')}</p>
                 </div>
-                <div className="rounded-lg bg-slate-900/50 border border-slate-800/40 p-4">
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('company.fcfYield')}</p>
+                <div className="rounded-lg bg-[var(--bg-primary)]/50 border border-[var(--border-color)] p-4">
+                  <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('company.fcfYield')}</p>
                   <p className="mt-1 text-xl font-bold text-emerald-400">
                     {(company.freeCashFlow / (company.marketCap / (company.currency === 'JPY' || company.currency === 'KRW' ? 1e6 : 1)) * 100).toFixed(1)}%
                   </p>
-                  <p className="mt-1 text-[10px] text-slate-500">{t('company.fcfYieldDesc')}</p>
+                  <p className="mt-1 text-[10px] text-[var(--text-muted)]">{t('company.fcfYieldDesc')}</p>
                 </div>
-                <div className="rounded-lg bg-slate-900/50 border border-slate-800/40 p-4">
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('company.dividendCoverage')}</p>
+                <div className="rounded-lg bg-[var(--bg-primary)]/50 border border-[var(--border-color)] p-4">
+                  <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('company.dividendCoverage')}</p>
                   <p className="mt-1 text-xl font-bold text-amber-400">
                     {(company.freeCashFlow / (company.netIncome * (company.dividendYield / 100) * company.peRatio)).toFixed(1)}x
                   </p>
-                  <p className="mt-1 text-[10px] text-slate-500">{t('company.dividendCoverageDesc')}</p>
+                  <p className="mt-1 text-[10px] text-[var(--text-muted)]">{t('company.dividendCoverageDesc')}</p>
                 </div>
               </div>
             </div>
@@ -261,8 +261,8 @@ export default function CompanyDetail() {
         {activeTab === 'financials' && (
           <div className="space-y-6">
             {/* Revenue Chart */}
-            <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
-              <h2 className="mb-4 text-sm font-semibold text-white">
+            <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
+              <h2 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">
                 {t('company.quarterlyRevenue')}
               </h2>
               <div className="h-64">
@@ -303,40 +303,40 @@ export default function CompanyDetail() {
             </div>
 
             {/* Advanced Metrics */}
-            <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
-              <h2 className="mb-4 text-sm font-semibold text-white">{t('company.advancedMetrics')}</h2>
+            <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
+              <h2 className="mb-4 text-sm font-semibold text-[var(--text-primary)]">{t('company.advancedMetrics')}</h2>
               <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('company.ebitda')}</p>
-                  <p className="mt-0.5 text-lg font-bold text-white">{formatNumber(company.ebitda)}</p>
+                  <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('company.ebitda')}</p>
+                  <p className="mt-0.5 text-lg font-bold text-[var(--text-primary)]">{formatNumber(company.ebitda)}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('company.ebitdaMargin')}</p>
-                  <p className="mt-0.5 text-lg font-bold text-white">{company.ebitdaMargin}%</p>
+                  <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('company.ebitdaMargin')}</p>
+                  <p className="mt-0.5 text-lg font-bold text-[var(--text-primary)]">{company.ebitdaMargin}%</p>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('company.freeCashFlow')}</p>
-                  <p className="mt-0.5 text-lg font-bold text-white">{formatNumber(company.freeCashFlow)}</p>
+                  <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('company.freeCashFlow')}</p>
+                  <p className="mt-0.5 text-lg font-bold text-[var(--text-primary)]">{formatNumber(company.freeCashFlow)}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('company.netDebt')}</p>
-                  <p className="mt-0.5 text-lg font-bold text-white">{formatNumber(company.netDebt)}</p>
+                  <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('company.netDebt')}</p>
+                  <p className="mt-0.5 text-lg font-bold text-[var(--text-primary)]">{formatNumber(company.netDebt)}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('compare.netDebtEbitda')}</p>
-                  <p className="mt-0.5 text-lg font-bold text-white">{(company.netDebt / company.ebitda).toFixed(2)}x</p>
+                  <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('compare.netDebtEbitda')}</p>
+                  <p className="mt-0.5 text-lg font-bold text-[var(--text-primary)]">{(company.netDebt / company.ebitda).toFixed(2)}x</p>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('company.eps')}</p>
-                  <p className="mt-0.5 text-lg font-bold text-white">{formatCurrency(company.eps, company.currency)}</p>
+                  <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('company.eps')}</p>
+                  <p className="mt-0.5 text-lg font-bold text-[var(--text-primary)]">{formatCurrency(company.eps, company.currency)}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('company.bookValue')}</p>
-                  <p className="mt-0.5 text-lg font-bold text-white">{formatCurrency(company.bookValue, company.currency)}</p>
+                  <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('company.bookValue')}</p>
+                  <p className="mt-0.5 text-lg font-bold text-[var(--text-primary)]">{formatCurrency(company.bookValue, company.currency)}</p>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('company.pbRatio')}</p>
-                  <p className="mt-0.5 text-lg font-bold text-white">{(company.stockPrice / company.bookValue).toFixed(2)}x</p>
+                  <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('company.pbRatio')}</p>
+                  <p className="mt-0.5 text-lg font-bold text-[var(--text-primary)]">{(company.stockPrice / company.bookValue).toFixed(2)}x</p>
                 </div>
               </div>
             </div>
@@ -350,8 +350,8 @@ export default function CompanyDetail() {
         {activeTab === 'news' && (
           <div className="space-y-4">
             {companyNews.length === 0 && (
-              <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-12 text-center">
-                <p className="text-slate-500">{t('common.noData')}</p>
+              <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-12 text-center">
+                <p className="text-[var(--text-muted)]">{t('common.noData')}</p>
               </div>
             )}
             {companyNews.map((article) => {
@@ -364,22 +364,22 @@ export default function CompanyDetail() {
               return (
                 <div
                   key={article.id}
-                  className="rounded-xl border border-slate-800/60 bg-[#111827] p-5 transition-all duration-200 hover:border-slate-700/80 hover:bg-[#151d2e]"
+                  className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5 transition-all duration-200 hover:border-[var(--border-color)] hover:bg-[var(--bg-card-hover)]"
                 >
                   <div className="mb-2 flex items-center gap-2">
                     <span
                       className={`rounded-md px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${
-                        categoryColors[article.category] || 'bg-slate-700 text-slate-300'
+                        categoryColors[article.category] || 'bg-[var(--bg-card-hover)] text-[var(--text-primary)]'
                       }`}
                     >
                       {t(`news.${article.category}`)}
                     </span>
-                    <span className="text-xs text-slate-500">{article.date}</span>
+                    <span className="text-xs text-[var(--text-muted)]">{article.date}</span>
                   </div>
-                  <h3 className="text-sm font-semibold text-white">
+                  <h3 className="text-sm font-semibold text-[var(--text-primary)]">
                     {article.title[language]}
                   </h3>
-                  <p className="mt-1 text-xs text-slate-500">
+                  <p className="mt-1 text-xs text-[var(--text-muted)]">
                     {t('news.source')}: {article.source}
                   </p>
                 </div>
@@ -399,8 +399,8 @@ export default function CompanyDetail() {
 function QuickStat({ label, value }) {
   return (
     <div>
-      <p className="text-[10px] uppercase tracking-wider text-slate-500">{label}</p>
-      <p className="mt-0.5 text-sm font-semibold text-white">{value}</p>
+      <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{label}</p>
+      <p className="mt-0.5 text-sm font-semibold text-[var(--text-primary)]">{value}</p>
     </div>
   );
 }
@@ -408,10 +408,10 @@ function QuickStat({ label, value }) {
 function InfoRow({ icon: Icon, label, value }) {
   return (
     <div className="flex items-center gap-3">
-      <Icon className="h-4 w-4 shrink-0 text-slate-500" />
+      <Icon className="h-4 w-4 shrink-0 text-[var(--text-muted)]" />
       <div>
-        <p className="text-[10px] uppercase tracking-wider text-slate-500">{label}</p>
-        <p className="text-sm text-slate-300">{typeof value === 'string' ? value : value}</p>
+        <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{label}</p>
+        <p className="text-sm text-[var(--text-primary)]">{typeof value === 'string' ? value : value}</p>
       </div>
     </div>
   );
@@ -419,9 +419,9 @@ function InfoRow({ icon: Icon, label, value }) {
 
 function MetricCard({ label, value }) {
   return (
-    <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-4 transition-colors duration-200 hover:bg-[#151d2e]">
-      <p className="text-[10px] uppercase tracking-wider text-slate-500">{label}</p>
-      <p className="mt-1 text-lg font-bold text-white">{value}</p>
+    <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-4 transition-colors duration-200 hover:bg-[var(--bg-card-hover)]">
+      <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{label}</p>
+      <p className="mt-1 text-lg font-bold text-[var(--text-primary)]">{value}</p>
     </div>
   );
 }
@@ -454,17 +454,17 @@ function NextEventCard({ companyId, t, language }) {
   };
 
   return (
-    <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
-      <h2 className="mb-3 text-sm font-semibold text-white">{t('earnings.nextEvent')}</h2>
+    <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
+      <h2 className="mb-3 text-sm font-semibold text-[var(--text-primary)]">{t('earnings.nextEvent')}</h2>
       <div className="flex items-center gap-3">
         <span className={`w-3 h-3 rounded-full shrink-0 ${dotColor}`} />
         <div className="flex-1">
-          <p className="text-sm font-medium text-white">{label}</p>
-          <p className="text-xs text-slate-400">{formatDate(nextEvent.date)}</p>
+          <p className="text-sm font-medium text-[var(--text-primary)]">{label}</p>
+          <p className="text-xs text-[var(--text-secondary)]">{formatDate(nextEvent.date)}</p>
         </div>
         <div className="text-right">
-          <p className="text-lg font-bold text-white">{daysUntil}</p>
-          <p className="text-[10px] text-slate-500">{t('earnings.daysUntil')}</p>
+          <p className="text-lg font-bold text-[var(--text-primary)]">{daysUntil}</p>
+          <p className="text-[10px] text-[var(--text-muted)]">{t('earnings.daysUntil')}</p>
         </div>
       </div>
     </div>
@@ -510,7 +510,7 @@ function FleetTab({ company, t, language }) {
         {fleetKpis.map((kpi) => {
           const Icon = kpi.icon;
           return (
-            <div key={kpi.label} className={`rounded-xl border border-slate-800/60 bg-[#111827] ${kpi.borderColor} border-l-4 p-4 transition-colors duration-200 hover:bg-[#151d2e]`}>
+            <div key={kpi.label} className={`rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] ${kpi.borderColor} border-l-4 p-4 transition-colors duration-200 hover:bg-[var(--bg-card-hover)]`}>
               <div className="flex items-center gap-2 mb-2">
                 <div className={`w-7 h-7 rounded-lg ${kpi.bgColor} flex items-center justify-center`}>
                   <Icon className={`w-4 h-4 ${kpi.color}`} />
@@ -521,9 +521,9 @@ function FleetTab({ company, t, language }) {
                   {kpi.value}
                 </span>
               ) : (
-                <p className="text-xl font-bold text-white">{kpi.value}</p>
+                <p className="text-xl font-bold text-[var(--text-primary)]">{kpi.value}</p>
               )}
-              <p className="text-[10px] uppercase tracking-wider text-slate-500 mt-1">{kpi.label}</p>
+              <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)] mt-1">{kpi.label}</p>
             </div>
           );
         })}
@@ -532,8 +532,8 @@ function FleetTab({ company, t, language }) {
       {/* Fleet Utilization + Sector */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
         {/* Utilization Gauge */}
-        <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
-          <h2 className="text-sm font-semibold text-white mb-3">{t('company.fleetUtilization')}</h2>
+        <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
+          <h2 className="text-sm font-semibold text-[var(--text-primary)] mb-3">{t('company.fleetUtilization')}</h2>
           <div className="flex items-center gap-4">
             <div className="relative w-24 h-24">
               <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
@@ -546,21 +546,21 @@ function FleetTab({ company, t, language }) {
                   strokeDasharray={`${company.fleetUtilization * 2.64} 264`}
                 />
               </svg>
-              <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-white">
+              <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-[var(--text-primary)]">
                 {company.fleetUtilization}%
               </span>
             </div>
             <div className="flex-1">
               <div className="flex items-center justify-between mb-1">
-                <span className="text-xs text-slate-400">{t('company.fleetUtilization')}</span>
+                <span className="text-xs text-[var(--text-secondary)]">{t('company.fleetUtilization')}</span>
                 <span className="text-xs font-medium" style={{ color: utilizationColor }}>
                   {company.fleetUtilization >= 93 ? t('fleet.excellent') : company.fleetUtilization >= 88 ? t('fleet.good') : t('fleet.low')}
                 </span>
               </div>
-              <div className="h-2 w-full rounded-full bg-slate-800">
+              <div className="h-2 w-full rounded-full bg-[var(--bg-card)]">
                 <div className="h-2 rounded-full transition-all duration-500" style={{ width: `${company.fleetUtilization}%`, backgroundColor: utilizationColor }} />
               </div>
-              <p className="text-[10px] text-slate-500 mt-2">
+              <p className="text-[10px] text-[var(--text-muted)] mt-2">
                 {`${Math.round(company.vessels * company.fleetUtilization / 100)} / ${company.vessels} ${t('fleet.active')}`}
               </p>
             </div>
@@ -568,8 +568,8 @@ function FleetTab({ company, t, language }) {
         </div>
 
         {/* Order Book */}
-        <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
-          <h2 className="text-sm font-semibold text-white mb-3">{t('company.orderBook')}</h2>
+        <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
+          <h2 className="text-sm font-semibold text-[var(--text-primary)] mb-3">{t('company.orderBook')}</h2>
           <div className="flex items-center gap-4">
             <div className="relative w-24 h-24">
               <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
@@ -582,18 +582,18 @@ function FleetTab({ company, t, language }) {
                   strokeDasharray={`${Math.min(orderBookPct, 100) * 2.64} 264`}
                 />
               </svg>
-              <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-white">
+              <span className="absolute inset-0 flex items-center justify-center text-lg font-bold text-[var(--text-primary)]">
                 {company.orderBook}
               </span>
             </div>
             <div className="flex-1">
-              <p className="text-xs text-slate-400 mb-2">
+              <p className="text-xs text-[var(--text-secondary)] mb-2">
                 {t('fleet.vesselsOnOrder')}
               </p>
-              <div className="h-2 w-full rounded-full bg-slate-800 mb-1">
+              <div className="h-2 w-full rounded-full bg-[var(--bg-card)] mb-1">
                 <div className="h-2 rounded-full bg-amber-500 transition-all duration-500" style={{ width: `${Math.min(orderBookPct, 100)}%` }} />
               </div>
-              <p className="text-[10px] text-slate-500">
+              <p className="text-[10px] text-[var(--text-muted)]">
                 {`~${orderBookPct}% ${t('fleet.fleetExpansion')}`}
               </p>
               <p className="text-xs font-medium text-amber-400 mt-1">
@@ -606,8 +606,8 @@ function FleetTab({ company, t, language }) {
 
       {/* Fleet Breakdown by Ship Type */}
       {fleetChartData.length > 0 && (
-        <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
-          <h2 className="text-sm font-semibold text-white mb-4">
+        <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
+          <h2 className="text-sm font-semibold text-[var(--text-primary)] mb-4">
             {t('fleet.breakdown')}
           </h2>
           <div className="flex flex-col lg:flex-row gap-6">
@@ -636,9 +636,9 @@ function FleetTab({ company, t, language }) {
                       if (!active || !payload?.length) return null;
                       const d = payload[0].payload;
                       return (
-                        <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg px-3 py-2 shadow-xl">
-                          <p className="text-sm font-semibold text-white">{d.name}</p>
-                          <p className="text-xs text-slate-400">{d.count} {t('compare.vesselUnit')} ({d.pct}%)</p>
+                        <div className="bg-[var(--bg-card)]/95 backdrop-blur-sm border border-[var(--border-color)] rounded-lg px-3 py-2 shadow-xl">
+                          <p className="text-sm font-semibold text-[var(--text-primary)]">{d.name}</p>
+                          <p className="text-xs text-[var(--text-secondary)]">{d.count} {t('compare.vesselUnit')} ({d.pct}%)</p>
                         </div>
                       );
                     }}
@@ -654,14 +654,14 @@ function FleetTab({ company, t, language }) {
                   <div className="flex items-center justify-between mb-1">
                     <div className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: entry.color }} />
-                      <span className="text-xs text-slate-300">{entry.name}</span>
+                      <span className="text-xs text-[var(--text-primary)]">{entry.name}</span>
                     </div>
                     <div className="flex items-center gap-3">
-                      <span className="text-xs font-semibold text-white">{entry.count}</span>
-                      <span className="text-[10px] text-slate-500 w-10 text-right">{entry.pct}%</span>
+                      <span className="text-xs font-semibold text-[var(--text-primary)]">{entry.count}</span>
+                      <span className="text-[10px] text-[var(--text-muted)] w-10 text-right">{entry.pct}%</span>
                     </div>
                   </div>
-                  <div className="h-2 w-full rounded-full bg-slate-800">
+                  <div className="h-2 w-full rounded-full bg-[var(--bg-card)]">
                     <div
                       className="h-2 rounded-full transition-all duration-500"
                       style={{ width: `${entry.pct}%`, backgroundColor: entry.color }}
@@ -669,9 +669,9 @@ function FleetTab({ company, t, language }) {
                   </div>
                 </div>
               ))}
-              <div className="pt-2 border-t border-slate-800/60 flex items-center justify-between">
-                <span className="text-xs text-slate-400">{t('fleet.total')}</span>
-                <span className="text-sm font-bold text-white">{totalFleetTyped} {t('compare.vesselUnit')}</span>
+              <div className="pt-2 border-t border-[var(--border-color)] flex items-center justify-between">
+                <span className="text-xs text-[var(--text-secondary)]">{t('fleet.total')}</span>
+                <span className="text-sm font-bold text-[var(--text-primary)]">{totalFleetTyped} {t('compare.vesselUnit')}</span>
               </div>
             </div>
           </div>
@@ -679,10 +679,10 @@ function FleetTab({ company, t, language }) {
       )}
 
       {/* Sector badge & visual vessel grid */}
-      <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
+      <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-sm font-semibold text-white">{t('company.fleet')}</h2>
-          <span className="inline-flex rounded-full bg-slate-800 px-3 py-1 text-xs font-medium text-slate-200">
+          <h2 className="text-sm font-semibold text-[var(--text-primary)]">{t('company.fleet')}</h2>
+          <span className="inline-flex rounded-full bg-[var(--bg-card)] px-3 py-1 text-xs font-medium text-[var(--text-primary)]">
             {sectorKeys[company.sector] ? t(`company.${sectorKeys[company.sector]}`) : company.sector}
           </span>
         </div>
@@ -695,7 +695,7 @@ function FleetTab({ company, t, language }) {
             />
           ))}
           {company.vessels > 200 && (
-            <span className="ml-2 self-end text-xs text-slate-500">
+            <span className="ml-2 self-end text-xs text-[var(--text-muted)]">
               +{company.vessels - 200} {t('company.more')}
             </span>
           )}
@@ -709,8 +709,8 @@ function EsgTab({ company, t }) {
   const esg = esgData[company.id];
   if (!esg) {
     return (
-      <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-12 text-center">
-        <p className="text-slate-500">{t('common.noData')}</p>
+      <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-12 text-center">
+        <p className="text-[var(--text-muted)]">{t('common.noData')}</p>
       </div>
     );
   }
@@ -719,10 +719,10 @@ function EsgTab({ company, t }) {
   const ciiColor = ciiColors[esg.ciiRating] || '#64748b';
 
   const exposureColors = { Low: 'bg-emerald-500/10 text-emerald-400', Medium: 'bg-amber-500/10 text-amber-400', High: 'bg-red-500/10 text-red-400' };
-  const exposureCls = exposureColors[esg.euEtsExposure] || 'bg-slate-700 text-slate-300';
+  const exposureCls = exposureColors[esg.euEtsExposure] || 'bg-[var(--bg-card-hover)] text-[var(--text-primary)]';
 
   const trendArrow = esg.trend === 'improving' ? '\u2191' : esg.trend === 'declining' ? '\u2193' : '\u2192';
-  const trendColor = esg.trend === 'improving' ? 'text-emerald-400' : esg.trend === 'declining' ? 'text-red-400' : 'text-slate-400';
+  const trendColor = esg.trend === 'improving' ? 'text-emerald-400' : esg.trend === 'declining' ? 'text-red-400' : 'text-[var(--text-secondary)]';
 
   const greenPct = company.vessels > 0 ? ((esg.greenVessels / company.vessels) * 100).toFixed(1) : 0;
 
@@ -739,8 +739,8 @@ function EsgTab({ company, t }) {
     <div className="space-y-6">
       {/* ESG KPI Cards */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-4">
-          <p className="text-[10px] uppercase tracking-wider text-slate-500 mb-2">{t('esg.ciiRating')}</p>
+        <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-4">
+          <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)] mb-2">{t('esg.ciiRating')}</p>
           <span
             className="inline-flex items-center justify-center w-12 h-12 rounded-xl text-xl font-bold"
             style={{ backgroundColor: ciiColor + '20', color: ciiColor }}
@@ -749,23 +749,23 @@ function EsgTab({ company, t }) {
           </span>
         </div>
 
-        <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-4">
-          <p className="text-[10px] uppercase tracking-wider text-slate-500 mb-2">{t('esg.carbonIntensity')}</p>
+        <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-4">
+          <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)] mb-2">{t('esg.carbonIntensity')}</p>
           <div className="flex items-baseline gap-2">
-            <p className="text-2xl font-bold text-white">{esg.carbonIntensity}</p>
+            <p className="text-2xl font-bold text-[var(--text-primary)]">{esg.carbonIntensity}</p>
             <span className={`text-lg font-bold ${trendColor}`}>{trendArrow}</span>
           </div>
-          <p className="text-[10px] text-slate-500 mt-1">gCO2/ton-mile</p>
+          <p className="text-[10px] text-[var(--text-muted)] mt-1">gCO2/ton-mile</p>
         </div>
 
-        <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-4">
-          <p className="text-[10px] uppercase tracking-wider text-slate-500 mb-2">{t('esg.greenVessels')}</p>
+        <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-4">
+          <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)] mb-2">{t('esg.greenVessels')}</p>
           <p className="text-2xl font-bold text-emerald-400">{esg.greenVessels}</p>
-          <p className="text-[10px] text-slate-500 mt-1">{greenPct}% {t('esg.ofFleet')}</p>
+          <p className="text-[10px] text-[var(--text-muted)] mt-1">{greenPct}% {t('esg.ofFleet')}</p>
         </div>
 
-        <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-4">
-          <p className="text-[10px] uppercase tracking-wider text-slate-500 mb-2">{t('esg.euEts')}</p>
+        <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-4">
+          <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)] mb-2">{t('esg.euEts')}</p>
           <span className={`inline-flex rounded-full px-3 py-1 text-sm font-medium ${exposureCls}`}>
             {esg.euEtsExposure}
           </span>
@@ -773,8 +773,8 @@ function EsgTab({ company, t }) {
       </div>
 
       {/* Carbon Intensity vs Industry */}
-      <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
-        <h2 className="text-sm font-semibold text-white mb-4">{t('esg.vsIndustry')}</h2>
+      <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
+        <h2 className="text-sm font-semibold text-[var(--text-primary)] mb-4">{t('esg.vsIndustry')}</h2>
         <ResponsiveContainer width="100%" height={160}>
           <BarChart data={comparisonData} layout="vertical" margin={{ top: 0, right: 20, left: 10, bottom: 0 }}>
             <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" horizontal={false} />
@@ -783,9 +783,9 @@ function EsgTab({ company, t }) {
             <Tooltip content={({ active, payload }) => {
               if (!active || !payload?.length) return null;
               return (
-                <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg px-3 py-2 shadow-xl">
-                  <p className="text-sm font-semibold text-white">{payload[0].payload.name}</p>
-                  <p className="text-xs text-slate-400">{payload[0].value} gCO2/ton-mile</p>
+                <div className="bg-[var(--bg-card)]/95 backdrop-blur-sm border border-[var(--border-color)] rounded-lg px-3 py-2 shadow-xl">
+                  <p className="text-sm font-semibold text-[var(--text-primary)]">{payload[0].payload.name}</p>
+                  <p className="text-xs text-[var(--text-secondary)]">{payload[0].value} gCO2/ton-mile</p>
                 </div>
               );
             }} />
@@ -799,11 +799,11 @@ function EsgTab({ company, t }) {
       </div>
 
       {/* Trend */}
-      <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
-        <h2 className="text-sm font-semibold text-white mb-2">{t('esg.trend')}</h2>
+      <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
+        <h2 className="text-sm font-semibold text-[var(--text-primary)] mb-2">{t('esg.trend')}</h2>
         <div className="flex items-center gap-3">
           <span className={`text-2xl ${trendColor}`}>{trendArrow}</span>
-          <span className="text-sm text-slate-300">{t(`esg.trend_${esg.trend}`)}</span>
+          <span className="text-sm text-[var(--text-primary)]">{t(`esg.trend_${esg.trend}`)}</span>
         </div>
       </div>
     </div>

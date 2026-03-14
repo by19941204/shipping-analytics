@@ -21,9 +21,9 @@ const categoryColors = {
 function BdiTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg px-3 py-2 shadow-xl">
-      <p className="text-xs text-slate-400 mb-1">{label}</p>
-      <p className="text-sm font-semibold text-white">{payload[0].value.toLocaleString()}</p>
+    <div className="bg-[var(--bg-card)]/95 backdrop-blur-sm border border-[var(--border-color)] rounded-lg px-3 py-2 shadow-xl">
+      <p className="text-xs text-[var(--text-secondary)] mb-1">{label}</p>
+      <p className="text-sm font-semibold text-[var(--text-primary)]">{payload[0].value.toLocaleString()}</p>
     </div>
   );
 }
@@ -73,12 +73,12 @@ export default function Dashboard() {
   function SortHeader({ label, field }) {
     const active = sortKey === field;
     return (
-      <button onClick={() => handleSort(field)} className="inline-flex items-center gap-1 group hover:text-slate-200 transition-colors">
+      <button onClick={() => handleSort(field)} className="inline-flex items-center gap-1 group hover:text-[var(--text-primary)] transition-colors">
         {label}
         {active ? (
           sortDir === 'asc' ? <ChevronUp className="w-3.5 h-3.5 text-blue-400" /> : <ChevronDown className="w-3.5 h-3.5 text-blue-400" />
         ) : (
-          <ArrowUpDown className="w-3 h-3 text-slate-600 group-hover:text-slate-400 transition-colors" />
+          <ArrowUpDown className="w-3 h-3 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors" />
         )}
       </button>
     );
@@ -124,14 +124,14 @@ export default function Dashboard() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0b0e17] text-white">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
           <div className="flex items-center justify-between flex-wrap gap-4">
             <div>
-              <h1 className="text-2xl sm:text-3xl font-bold text-white">{t('dashboard.title')}</h1>
-              <p className="text-slate-400 mt-1">{t('dashboard.subtitle')}</p>
+              <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">{t('dashboard.title')}</h1>
+              <p className="text-[var(--text-secondary)] mt-1">{t('dashboard.subtitle')}</p>
             </div>
             <div className="flex items-center gap-4">
               {/* Live data status */}
@@ -142,21 +142,21 @@ export default function Dashboard() {
                     {t('news.live')}
                   </span>
                 ) : (
-                  <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-500/10 text-slate-500">
+                  <span className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--bg-card)]/10 text-[var(--text-muted)]">
                     <WifiOff className="w-3 h-3" />
                     {t('news.static')}
                   </span>
                 )}
               </div>
               {stockLastUpdated && (
-                <span className="text-xs text-slate-500">
+                <span className="text-xs text-[var(--text-muted)]">
                   {t('common.lastUpdated')}: {stockLastUpdated.toLocaleTimeString()}
                 </span>
               )}
               <button
                 onClick={refreshStock}
                 disabled={stockLoading}
-                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-slate-800/50 text-slate-400 hover:text-white hover:bg-slate-700/50 transition-all cursor-pointer disabled:opacity-50"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium bg-[var(--bg-card)]/50 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]/50 transition-all cursor-pointer disabled:opacity-50"
               >
                 <RefreshCw className={`w-3.5 h-3.5 ${stockLoading ? 'animate-spin' : ''}`} />
               </button>
@@ -169,12 +169,12 @@ export default function Dashboard() {
           {kpiCards.map((card) => {
             const Icon = card.icon;
             return (
-              <div key={card.label} className={`bg-[#111827] border border-slate-800/60 ${card.border} border-l-4 rounded-xl p-5 hover:bg-[#151d2e] transition-colors duration-200`}>
+              <div key={card.label} className={`bg-[var(--bg-card)] border border-[var(--border-color)] ${card.border} border-l-4 rounded-xl p-5 hover:bg-[var(--bg-card-hover)] transition-colors duration-200`}>
                 <div className="flex items-center justify-between mb-3">
-                  <span className="text-xs font-medium text-slate-400 uppercase tracking-wider">{card.label}</span>
+                  <span className="text-xs font-medium text-[var(--text-secondary)] uppercase tracking-wider">{card.label}</span>
                   <Icon className={`w-5 h-5 ${card.color}`} />
                 </div>
-                <div className="text-2xl font-bold text-white">{card.value}</div>
+                <div className="text-2xl font-bold text-[var(--text-primary)]">{card.value}</div>
                 <div className={`flex items-center gap-1 mt-2 text-xs font-medium ${card.trendUp ? 'text-emerald-400' : 'text-red-400'}`}>
                   {card.trendUp ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
                   {card.trend}
@@ -194,16 +194,16 @@ export default function Dashboard() {
           const latestBsi = bsiHistory[bsiHistory.length - 1]?.value ?? 0;
           const latestBhsi = bhsiHistory[bhsiHistory.length - 1]?.value ?? 0;
           return (
-            <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-8">
+            <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-8">
               <div className="flex items-center justify-between mb-1">
-                <h2 className="text-lg font-semibold text-white">{t('dashboard.bdiIndex')}</h2>
+                <h2 className="text-lg font-semibold text-[var(--text-primary)]">{t('dashboard.bdiIndex')}</h2>
                 <div className="flex items-center gap-1.5">
                   {['1M', '3M', '6M'].map((p) => (
                     <button
                       key={p}
                       onClick={() => setBdiPeriod(p)}
                       className={`px-2.5 py-1 rounded text-xs font-medium transition-colors cursor-pointer ${
-                        bdiPeriod === p ? 'bg-blue-500/20 text-blue-400' : 'text-slate-500 hover:text-slate-300 hover:bg-slate-800/50'
+                        bdiPeriod === p ? 'bg-blue-500/20 text-blue-400' : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)] hover:bg-[var(--bg-card)]/50'
                       }`}
                     >
                       {p}
@@ -212,8 +212,8 @@ export default function Dashboard() {
                 </div>
               </div>
               <div className="flex items-center justify-between mb-5">
-                <p className="text-sm text-slate-400">{periodDays}{t('indices.dayTrend')}</p>
-                <div className="flex items-center gap-3 text-[10px] text-slate-500">
+                <p className="text-sm text-[var(--text-secondary)]">{periodDays}{t('indices.dayTrend')}</p>
+                <div className="flex items-center gap-3 text-[10px] text-[var(--text-muted)]">
                   <span>BCI {latestBci.toLocaleString()}</span>
                   <span>BPI {latestBpi.toLocaleString()}</span>
                   <span>BSI {latestBsi.toLocaleString()}</span>
@@ -279,14 +279,14 @@ export default function Dashboard() {
             const weekDiff = latest - weekAgo;
             const weekPct = weekAgo !== 0 ? ((weekDiff / weekAgo) * 100) : 0;
             return (
-              <div key={idx.title} className="bg-[#111827] border border-slate-800/60 rounded-xl p-4">
+              <div key={idx.title} className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-4">
                 <div className="flex items-center justify-between mb-1">
                   <div>
-                    <h3 className="text-sm font-semibold text-white">{idx.title}</h3>
-                    <p className="text-[10px] text-slate-500">{idx.subtitle}</p>
+                    <h3 className="text-sm font-semibold text-[var(--text-primary)]">{idx.title}</h3>
+                    <p className="text-[10px] text-[var(--text-muted)]">{idx.subtitle}</p>
                   </div>
                   <div className="text-right">
-                    <span className="text-xl font-bold text-white">{latest.toLocaleString()}</span>
+                    <span className="text-xl font-bold text-[var(--text-primary)]">{latest.toLocaleString()}</span>
                   </div>
                 </div>
                 <div className="flex items-center justify-between mb-2">
@@ -295,7 +295,7 @@ export default function Dashboard() {
                       {diff >= 0 ? <TrendingUp className="w-3 h-3" /> : <TrendingDown className="w-3 h-3" />}
                       {diff >= 0 ? '+' : ''}{diff.toFixed(0)}
                     </span>
-                    <span className="text-[10px] text-slate-600">|</span>
+                    <span className="text-[10px] text-[var(--text-muted)]">|</span>
                     <span className={`text-[10px] font-medium ${weekDiff >= 0 ? 'text-emerald-400/70' : 'text-red-400/70'}`}>
                       {t('indices.weekChange')} {weekDiff >= 0 ? '+' : ''}{weekPct.toFixed(1)}%
                     </span>
@@ -315,9 +315,9 @@ export default function Dashboard() {
                       content={({ active, payload, label }) => {
                         if (!active || !payload?.length) return null;
                         return (
-                          <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg px-3 py-2 shadow-xl">
-                            <p className="text-xs text-slate-400 mb-1">{label}</p>
-                            <p className="text-sm font-semibold text-white">{payload[0].value.toLocaleString()}</p>
+                          <div className="bg-[var(--bg-card)]/95 backdrop-blur-sm border border-[var(--border-color)] rounded-lg px-3 py-2 shadow-xl">
+                            <p className="text-xs text-[var(--text-secondary)] mb-1">{label}</p>
+                            <p className="text-sm font-semibold text-[var(--text-primary)]">{payload[0].value.toLocaleString()}</p>
                           </div>
                         );
                       }}
@@ -342,17 +342,17 @@ export default function Dashboard() {
             const avgValue = Math.round(bunkerPriceHistory.reduce((s, d) => s + d.value, 0) / bunkerPriceHistory.length);
             const chartData = bunkerPriceHistory.map(d => ({ ...d, avg: avgValue }));
             return (
-              <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-5">
+              <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-5">
                 <div className="flex items-center justify-between mb-1">
-                  <h3 className="text-base font-semibold text-white">{t('dashboard.vlsfo')}</h3>
+                  <h3 className="text-base font-semibold text-[var(--text-primary)]">{t('dashboard.vlsfo')}</h3>
                   <div className="text-right">
-                    <span className="text-xl font-bold text-white">${latestBunker}</span>
+                    <span className="text-xl font-bold text-[var(--text-primary)]">${latestBunker}</span>
                     <span className={`ml-2 text-xs font-medium ${bunkerDiff >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                       {bunkerDiff >= 0 ? '+' : ''}{bunkerDiff.toFixed(0)}
                     </span>
                   </div>
                 </div>
-                <p className="text-xs text-slate-500 mb-3">
+                <p className="text-xs text-[var(--text-muted)] mb-3">
                   {t('dashboard.bunkerChartSubtitle')}
                 </p>
                 <ResponsiveContainer width="100%" height={220}>
@@ -377,10 +377,10 @@ export default function Dashboard() {
                       content={({ active, payload, label }) => {
                         if (!active || !payload?.length) return null;
                         return (
-                          <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg px-3 py-2 shadow-xl">
-                            <p className="text-xs text-slate-400 mb-1">{label}</p>
+                          <div className="bg-[var(--bg-card)]/95 backdrop-blur-sm border border-[var(--border-color)] rounded-lg px-3 py-2 shadow-xl">
+                            <p className="text-xs text-[var(--text-secondary)] mb-1">{label}</p>
                             <p className="text-sm font-semibold text-amber-400">VLSFO: ${payload[0].value}</p>
-                            {payload[1] && <p className="text-xs text-slate-400">{t('dashboard.avgLine')}: ${payload[1].value}</p>}
+                            {payload[1] && <p className="text-xs text-[var(--text-secondary)]">{t('dashboard.avgLine')}: ${payload[1].value}</p>}
                           </div>
                         );
                       }}
@@ -403,13 +403,13 @@ export default function Dashboard() {
             const minHsfo = Math.min(...ports.map(([, d]) => d.hsfo));
             const maxHsfo = Math.max(...ports.map(([, d]) => d.hsfo));
             return (
-              <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-5">
-                <h3 className="text-base font-semibold text-white mb-1">{t('dashboard.bunkerByPort')}</h3>
-                <p className="text-xs text-slate-500 mb-3">$/mt</p>
+              <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-5">
+                <h3 className="text-base font-semibold text-[var(--text-primary)] mb-1">{t('dashboard.bunkerByPort')}</h3>
+                <p className="text-xs text-[var(--text-muted)] mb-3">$/mt</p>
                 <div className="overflow-x-auto">
                   <table className="w-full min-w-[500px]">
                     <thead>
-                      <tr className="text-xs text-slate-400 uppercase tracking-wider border-b border-slate-700/50">
+                      <tr className="text-xs text-[var(--text-secondary)] uppercase tracking-wider border-b border-[var(--border-color)]">
                         <th className="text-left pb-2 pr-4">{t('dashboard.port')}</th>
                         <th className="text-right pb-2 px-3">{t('dashboard.vlsfo')}</th>
                         <th className="text-right pb-2 px-3">{t('dashboard.mgo')}</th>
@@ -418,33 +418,33 @@ export default function Dashboard() {
                     </thead>
                     <tbody>
                       {ports.map(([key, data]) => (
-                        <tr key={key} className="border-b border-slate-800/30 hover:bg-white/[0.02]">
-                          <td className="py-2 pr-4 text-sm font-medium text-white whitespace-nowrap">
+                        <tr key={key} className="border-b border-[var(--border-color)] hover:bg-white/[0.02]">
+                          <td className="py-2 pr-4 text-sm font-medium text-[var(--text-primary)] whitespace-nowrap">
                             <span className="mr-1.5">{data.flag}</span>
                             {data.port[language]}
                           </td>
-                          <td className={`py-2 px-3 text-right text-sm font-mono ${data.vlsfo === minVlsfo ? 'text-emerald-400 font-semibold bg-emerald-500/5' : data.vlsfo === maxVlsfo ? 'text-red-400' : 'text-slate-300'}`}>
+                          <td className={`py-2 px-3 text-right text-sm font-mono ${data.vlsfo === minVlsfo ? 'text-emerald-400 font-semibold bg-emerald-500/5' : data.vlsfo === maxVlsfo ? 'text-red-400' : 'text-[var(--text-primary)]'}`}>
                             ${data.vlsfo}
                             {data.vlsfo === maxVlsfo && <span className="ml-1 text-xs">{'\u2191'}</span>}
                             {data.vlsfo === minVlsfo && <span className="ml-1 text-xs">{'\u2193'}</span>}
                           </td>
-                          <td className={`py-2 px-3 text-right text-sm font-mono ${data.mgo === minMgo ? 'text-emerald-400 font-semibold bg-emerald-500/5' : data.mgo === maxMgo ? 'text-red-400' : 'text-slate-300'}`}>
+                          <td className={`py-2 px-3 text-right text-sm font-mono ${data.mgo === minMgo ? 'text-emerald-400 font-semibold bg-emerald-500/5' : data.mgo === maxMgo ? 'text-red-400' : 'text-[var(--text-primary)]'}`}>
                             ${data.mgo}
                             {data.mgo === maxMgo && <span className="ml-1 text-xs">{'\u2191'}</span>}
                             {data.mgo === minMgo && <span className="ml-1 text-xs">{'\u2193'}</span>}
                           </td>
-                          <td className={`py-2 px-3 text-right text-sm font-mono ${data.hsfo === minHsfo ? 'text-emerald-400 font-semibold bg-emerald-500/5' : data.hsfo === maxHsfo ? 'text-red-400' : 'text-slate-300'}`}>
+                          <td className={`py-2 px-3 text-right text-sm font-mono ${data.hsfo === minHsfo ? 'text-emerald-400 font-semibold bg-emerald-500/5' : data.hsfo === maxHsfo ? 'text-red-400' : 'text-[var(--text-primary)]'}`}>
                             ${data.hsfo}
                             {data.hsfo === maxHsfo && <span className="ml-1 text-xs">{'\u2191'}</span>}
                             {data.hsfo === minHsfo && <span className="ml-1 text-xs">{'\u2193'}</span>}
                           </td>
                         </tr>
                       ))}
-                      <tr className="border-t border-slate-600/50">
-                        <td className="py-2 pr-4 text-xs font-semibold text-slate-400 uppercase">{t('dashboard.spread')}</td>
-                        <td className="py-2 px-3 text-right text-xs font-mono text-slate-400">${maxVlsfo - minVlsfo}</td>
-                        <td className="py-2 px-3 text-right text-xs font-mono text-slate-400">${maxMgo - minMgo}</td>
-                        <td className="py-2 px-3 text-right text-xs font-mono text-slate-400">${maxHsfo - minHsfo}</td>
+                      <tr className="border-t border-[var(--border-color)]">
+                        <td className="py-2 pr-4 text-xs font-semibold text-[var(--text-secondary)] uppercase">{t('dashboard.spread')}</td>
+                        <td className="py-2 px-3 text-right text-xs font-mono text-[var(--text-secondary)]">${maxVlsfo - minVlsfo}</td>
+                        <td className="py-2 px-3 text-right text-xs font-mono text-[var(--text-secondary)]">${maxMgo - minMgo}</td>
+                        <td className="py-2 px-3 text-right text-xs font-mono text-[var(--text-secondary)]">${maxHsfo - minHsfo}</td>
                       </tr>
                     </tbody>
                   </table>
@@ -464,11 +464,11 @@ export default function Dashboard() {
             { type: 'tanker', label: t('indices.tanker'), color: '#f59e0b', icon: 'T' },
           ];
           return (
-            <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-8">
-              <h2 className="text-lg font-semibold text-white mb-1">
+            <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-8">
+              <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-1">
                 {t('dashboard.keyFreightRoutes')}
               </h2>
-              <p className="text-sm text-slate-400 mb-5">
+              <p className="text-sm text-[var(--text-secondary)] mb-5">
                 {t('dashboard.freightRoutesSubtitle')}
               </p>
               <div className="space-y-5">
@@ -479,7 +479,7 @@ export default function Dashboard() {
                     <div key={group.type}>
                       <div className="flex items-center gap-2 mb-3">
                         <span
-                          className="w-5 h-5 rounded flex items-center justify-center text-[10px] font-bold text-white"
+                          className="w-5 h-5 rounded flex items-center justify-center text-[10px] font-bold text-[var(--text-primary)]"
                           style={{ backgroundColor: group.color + '30', color: group.color }}
                         >
                           {group.icon}
@@ -487,7 +487,7 @@ export default function Dashboard() {
                         <span className="text-xs font-semibold uppercase tracking-wider" style={{ color: group.color }}>
                           {group.label}
                         </span>
-                        <span className="text-[10px] text-slate-600">
+                        <span className="text-[10px] text-[var(--text-muted)]">
                           {group.type === 'container' ? '$/FEU' : group.type === 'dryBulk' ? '$/day' : 'Worldscale'}
                         </span>
                       </div>
@@ -497,14 +497,14 @@ export default function Dashboard() {
                           return (
                             <div
                               key={route.id}
-                              className="bg-slate-900/50 border rounded-lg p-3 transition-colors hover:bg-slate-800/40"
+                              className="bg-[var(--bg-primary)]/50 border rounded-lg p-3 transition-colors hover:bg-[var(--bg-card-hover)]/40"
                               style={{ borderColor: route.change >= 0 ? 'rgba(16,185,129,0.15)' : 'rgba(239,68,68,0.15)' }}
                             >
-                              <p className="text-xs text-slate-400 mb-1.5 line-clamp-1">{route.name[language]}</p>
+                              <p className="text-xs text-[var(--text-secondary)] mb-1.5 line-clamp-1">{route.name[language]}</p>
                               <div className="flex items-end justify-between">
                                 <div>
-                                  <span className="text-lg font-bold text-white">{route.rate.toLocaleString()}</span>
-                                  <span className="text-[10px] text-slate-500 ml-1">{route.unit}</span>
+                                  <span className="text-lg font-bold text-[var(--text-primary)]">{route.rate.toLocaleString()}</span>
+                                  <span className="text-[10px] text-[var(--text-muted)] ml-1">{route.unit}</span>
                                 </div>
                                 <div className="text-right">
                                   <span className={`text-xs font-semibold ${route.change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
@@ -535,10 +535,10 @@ export default function Dashboard() {
 
         {/* Stock Overview Table */}
         <DashboardSection title={t('dashboard.stockOverview')} defaultOpen={true} storageKey="stockOverview">
-        <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-8 overflow-x-auto">
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-8 overflow-x-auto">
           <table className="w-full min-w-[700px]">
             <thead>
-              <tr className="text-xs text-slate-400 uppercase tracking-wider border-b border-slate-700/50">
+              <tr className="text-xs text-[var(--text-secondary)] uppercase tracking-wider border-b border-[var(--border-color)]">
                 <th className="text-left pb-3 pr-4"><SortHeader label={t('dashboard.company')} field="name" /></th>
                 <th className="text-left pb-3 pr-4">{t('dashboard.ticker')}</th>
                 <th className="text-right pb-3 pr-4"><SortHeader label={t('company.stockPrice')} field="stockPrice" /></th>
@@ -553,25 +553,25 @@ export default function Dashboard() {
                   <tr
                     key={company.id}
                     onClick={() => navigate(`/company/${company.id}`)}
-                    className="border-b border-slate-800/30 hover:bg-white/[0.03] transition-colors duration-150 cursor-pointer"
+                    className="border-b border-[var(--border-color)] hover:bg-white/[0.03] transition-colors duration-150 cursor-pointer"
                   >
                     <td className="py-3.5 pr-4">
                       <div className="flex items-center gap-3">
                         <span className="text-xl">{company.logo}</span>
-                        <span className="font-medium text-white text-sm">{company.name[language]}</span>
+                        <span className="font-medium text-[var(--text-primary)] text-sm">{company.name[language]}</span>
                       </div>
                     </td>
-                    <td className="py-3.5 pr-4 text-sm text-slate-400 font-mono">{company.ticker}</td>
-                    <td className="py-3.5 pr-4 text-right text-sm font-medium text-white">{formatCurrency(company.stockPrice, company.currency)}</td>
+                    <td className="py-3.5 pr-4 text-sm text-[var(--text-secondary)] font-mono">{company.ticker}</td>
+                    <td className="py-3.5 pr-4 text-right text-sm font-medium text-[var(--text-primary)]">{formatCurrency(company.stockPrice, company.currency)}</td>
                     <td className="py-3.5 pr-4 text-right">
                       <span className={`inline-flex items-center gap-1 text-sm font-medium ${company.change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                         {company.change >= 0 ? <TrendingUp className="w-3.5 h-3.5" /> : <TrendingDown className="w-3.5 h-3.5" />}
                         {formatPercent(company.change)}
                       </span>
                     </td>
-                    <td className="py-3.5 pr-4 text-right text-sm text-slate-300">{formatMarketCap(company.marketCap, language)}</td>
-                    <td className="py-3.5 pr-4 text-right text-sm text-slate-300">{company.peRatio.toFixed(1)}</td>
-                    <td className="py-3.5 text-right text-sm text-slate-300">{company.dividendYield.toFixed(1)}%</td>
+                    <td className="py-3.5 pr-4 text-right text-sm text-[var(--text-primary)]">{formatMarketCap(company.marketCap, language)}</td>
+                    <td className="py-3.5 pr-4 text-right text-sm text-[var(--text-primary)]">{company.peRatio.toFixed(1)}</td>
+                    <td className="py-3.5 text-right text-sm text-[var(--text-primary)]">{company.dividendYield.toFixed(1)}%</td>
                   </tr>
               ))}
             </tbody>
@@ -581,15 +581,15 @@ export default function Dashboard() {
 
         {/* Alliance Market Share */}
         <DashboardSection title={t('dashboard.allianceShare')} defaultOpen={false} storageKey="allianceShare">
-        <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-8">
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-8">
           <div className="flex items-center justify-between mb-6">
             <div>
-              <h2 className="text-lg font-semibold text-white">{t('indices.allianceOverview')}</h2>
-              <p className="text-sm text-slate-400 mt-1">
+              <h2 className="text-lg font-semibold text-[var(--text-primary)]">{t('indices.allianceOverview')}</h2>
+              <p className="text-sm text-[var(--text-secondary)] mt-1">
                 {t('dashboard.allianceDistribution')}
               </p>
             </div>
-            <div className="flex items-center gap-2 text-xs text-slate-500">
+            <div className="flex items-center gap-2 text-xs text-[var(--text-muted)]">
               <Ship className="w-4 h-4" />
               <span>{t('fleet.total')}: {(allianceData.reduce((s, a) => s + (a.teuCapacity || 0), 0) / 1e6).toFixed(1)}M TEU</span>
             </div>
@@ -624,10 +624,10 @@ export default function Dashboard() {
                       if (!active || !payload?.length) return null;
                       const d = payload[0].payload;
                       return (
-                        <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg px-4 py-3 shadow-xl">
-                          <p className="text-sm font-semibold text-white">{payload[0].name}</p>
-                          <p className="text-xs text-slate-400 mt-1">{payload[0].value}% {t('dashboard.marketShare')}</p>
-                          {d.teuCapacity && <p className="text-xs text-slate-400">{(d.teuCapacity / 1e6).toFixed(1)}M TEU</p>}
+                        <div className="bg-[var(--bg-card)]/95 backdrop-blur-sm border border-[var(--border-color)] rounded-lg px-4 py-3 shadow-xl">
+                          <p className="text-sm font-semibold text-[var(--text-primary)]">{payload[0].name}</p>
+                          <p className="text-xs text-[var(--text-secondary)] mt-1">{payload[0].value}% {t('dashboard.marketShare')}</p>
+                          {d.teuCapacity && <p className="text-xs text-[var(--text-secondary)]">{(d.teuCapacity / 1e6).toFixed(1)}M TEU</p>}
                         </div>
                       );
                     }}
@@ -641,7 +641,7 @@ export default function Dashboard() {
                   return (
                     <div key={i} className="flex items-center gap-2">
                       <span className="w-2.5 h-2.5 rounded-full shrink-0" style={{ backgroundColor: a.color }} />
-                      <span className="text-xs text-slate-300 truncate">{displayName}</span>
+                      <span className="text-xs text-[var(--text-primary)] truncate">{displayName}</span>
                       <span className="text-xs font-semibold ml-auto" style={{ color: a.color }}>{a.marketShare}%</span>
                     </div>
                   );
@@ -660,17 +660,17 @@ export default function Dashboard() {
                 return (
                   <div
                     key={i}
-                    className="rounded-xl border bg-slate-900/40 p-4 transition-all duration-200 hover:bg-slate-800/40"
+                    className="rounded-xl border bg-[var(--bg-primary)]/40 p-4 transition-all duration-200 hover:bg-[var(--bg-card-hover)]/40"
                     style={{ borderColor: a.color + '30' }}
                   >
                     {/* Alliance header */}
                     <div className="flex items-center gap-2.5 mb-3">
-                      <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold text-white shrink-0" style={{ backgroundColor: a.color + '25', color: a.color }}>
+                      <div className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold text-[var(--text-primary)] shrink-0" style={{ backgroundColor: a.color + '25', color: a.color }}>
                         {a.marketShare}%
                       </div>
                       <div className="min-w-0">
-                        <h3 className="text-sm font-semibold text-white truncate">{displayName}</h3>
-                        <p className="text-[10px] text-slate-500 truncate">{routes}</p>
+                        <h3 className="text-sm font-semibold text-[var(--text-primary)] truncate">{displayName}</h3>
+                        <p className="text-[10px] text-[var(--text-muted)] truncate">{routes}</p>
                       </div>
                     </div>
 
@@ -680,42 +680,42 @@ export default function Dashboard() {
                         <Link
                           key={mc.id}
                           to={`/company/${mc.id}`}
-                          className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-slate-800/60 hover:bg-slate-700/60 transition-colors"
+                          className="flex items-center gap-1 px-1.5 py-0.5 rounded bg-[var(--bg-card)]/60 hover:bg-[var(--bg-card-hover)]/60 transition-colors"
                           title={mc.name[language]}
                         >
                           <span className="text-sm">{mc.logo}</span>
-                          <span className="text-[9px] text-slate-400 hidden sm:inline">{mc.ticker.split('.')[0]}</span>
+                          <span className="text-[9px] text-[var(--text-secondary)] hidden sm:inline">{mc.ticker.split('.')[0]}</span>
                         </Link>
                       ))}
                       {a.members.filter(m => !(a.companyIds || []).some(cid => {
                         const co = companyList.find(c => c.id === cid);
                         return co && m.includes(co.name.en.split(' ')[0]);
                       })).map((m, j) => (
-                        <span key={j} className="text-[9px] px-1.5 py-0.5 rounded bg-slate-800/60 text-slate-500">{m}</span>
+                        <span key={j} className="text-[9px] px-1.5 py-0.5 rounded bg-[var(--bg-card)]/60 text-[var(--text-muted)]">{m}</span>
                       ))}
                     </div>
 
                     {/* KPI row */}
                     <div className="grid grid-cols-3 gap-2">
                       {a.teuCapacity && (
-                        <div className="text-center py-1.5 rounded-lg bg-slate-800/40">
-                          <p className="text-xs font-bold text-white">{(a.teuCapacity / 1e6).toFixed(1)}M</p>
-                          <p className="text-[9px] text-slate-500">TEU</p>
+                        <div className="text-center py-1.5 rounded-lg bg-[var(--bg-card)]/40">
+                          <p className="text-xs font-bold text-[var(--text-primary)]">{(a.teuCapacity / 1e6).toFixed(1)}M</p>
+                          <p className="text-[9px] text-[var(--text-muted)]">TEU</p>
                         </div>
                       )}
-                      <div className="text-center py-1.5 rounded-lg bg-slate-800/40">
-                        <p className="text-xs font-bold text-white">{totalVessels > 0 ? totalVessels.toLocaleString() : '--'}</p>
-                        <p className="text-[9px] text-slate-500">{t('company.vessels')}</p>
+                      <div className="text-center py-1.5 rounded-lg bg-[var(--bg-card)]/40">
+                        <p className="text-xs font-bold text-[var(--text-primary)]">{totalVessels > 0 ? totalVessels.toLocaleString() : '--'}</p>
+                        <p className="text-[9px] text-[var(--text-muted)]">{t('company.vessels')}</p>
                       </div>
-                      <div className="text-center py-1.5 rounded-lg bg-slate-800/40">
-                        <p className="text-xs font-bold text-white">{a.services}</p>
-                        <p className="text-[9px] text-slate-500">{t('dashboard.services')}</p>
+                      <div className="text-center py-1.5 rounded-lg bg-[var(--bg-card)]/40">
+                        <p className="text-xs font-bold text-[var(--text-primary)]">{a.services}</p>
+                        <p className="text-[9px] text-[var(--text-muted)]">{t('dashboard.services')}</p>
                       </div>
                     </div>
 
                     {/* Market share bar */}
                     <div className="mt-3">
-                      <div className="h-1.5 w-full rounded-full bg-slate-800">
+                      <div className="h-1.5 w-full rounded-full bg-[var(--bg-card)]">
                         <div className="h-1.5 rounded-full transition-all duration-700" style={{ width: `${a.marketShare}%`, backgroundColor: a.color }} />
                       </div>
                     </div>
@@ -731,10 +731,10 @@ export default function Dashboard() {
         <DashboardSection title={t('dashboard.moversNews')} defaultOpen={true} storageKey="moversNews">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
           {/* Top Gainers */}
-          <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
+          <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
               <TrendingUp className="w-5 h-5 text-emerald-400" />
-              <h2 className="text-lg font-semibold text-white">{t('dashboard.topGainers')}</h2>
+              <h2 className="text-lg font-semibold text-[var(--text-primary)]">{t('dashboard.topGainers')}</h2>
             </div>
             <div className="space-y-3">
               {topGainers.map((company, i) => (
@@ -747,8 +747,8 @@ export default function Dashboard() {
                     <span className="text-xs font-bold text-emerald-400 w-5">#{i + 1}</span>
                     <span className="text-lg">{company.logo}</span>
                     <div>
-                      <div className="font-medium text-sm text-white">{company.name[language]}</div>
-                      <div className="text-xs text-slate-400 font-mono">{company.ticker}</div>
+                      <div className="font-medium text-sm text-[var(--text-primary)]">{company.name[language]}</div>
+                      <div className="text-xs text-[var(--text-secondary)] font-mono">{company.ticker}</div>
                     </div>
                   </div>
                   <span className="text-emerald-400 font-semibold text-sm">{formatPercent(company.change)}</span>
@@ -758,10 +758,10 @@ export default function Dashboard() {
           </div>
 
           {/* Top Losers */}
-          <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
+          <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
             <div className="flex items-center gap-2 mb-4">
               <TrendingDown className="w-5 h-5 text-red-400" />
-              <h2 className="text-lg font-semibold text-white">{t('dashboard.topLosers')}</h2>
+              <h2 className="text-lg font-semibold text-[var(--text-primary)]">{t('dashboard.topLosers')}</h2>
             </div>
             <div className="space-y-3">
               {topLosers.map((company, i) => (
@@ -774,8 +774,8 @@ export default function Dashboard() {
                     <span className="text-xs font-bold text-red-400 w-5">#{i + 1}</span>
                     <span className="text-lg">{company.logo}</span>
                     <div>
-                      <div className="font-medium text-sm text-white">{company.name[language]}</div>
-                      <div className="text-xs text-slate-400 font-mono">{company.ticker}</div>
+                      <div className="font-medium text-sm text-[var(--text-primary)]">{company.name[language]}</div>
+                      <div className="text-xs text-[var(--text-secondary)] font-mono">{company.ticker}</div>
                     </div>
                   </div>
                   <span className="text-red-400 font-semibold text-sm">{formatPercent(company.change)}</span>
@@ -786,11 +786,11 @@ export default function Dashboard() {
         </div>
 
         {/* Recent News */}
-        <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-2">
               <Newspaper className="w-5 h-5 text-blue-400" />
-              <h2 className="text-lg font-semibold text-white">{t('dashboard.recentNews')}</h2>
+              <h2 className="text-lg font-semibold text-[var(--text-primary)]">{t('dashboard.recentNews')}</h2>
             </div>
             <Link to="/news" className="text-sm text-blue-400 hover:text-blue-300 transition-colors">
               {t('news.readMore')} &rarr;
@@ -807,22 +807,22 @@ export default function Dashboard() {
                 <Wrapper
                   key={item.id}
                   {...wrapperProps}
-                  className="block p-4 rounded-lg bg-slate-900/50 border border-slate-800/40 hover:border-slate-700/60 hover:bg-slate-800/30 transition-all duration-200 hover:-translate-y-0.5"
+                  className="block p-4 rounded-lg bg-[var(--bg-primary)]/50 border border-[var(--border-color)] hover:border-[var(--border-color)] hover:bg-[var(--bg-card-hover)]/30 transition-all duration-200 hover:-translate-y-0.5"
                 >
                   <div className="flex items-center gap-2 mb-2">
-                    <span className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full ${categoryColors[item.category] || 'bg-slate-500/20 text-slate-400'}`}>
+                    <span className={`text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full ${categoryColors[item.category] || 'bg-[var(--bg-card)]/20 text-[var(--text-secondary)]'}`}>
                       {t(`news.${item.category}`)}
                     </span>
                     {!item.isStatic && (
                       <span className="text-[10px] font-medium px-1.5 py-0.5 rounded bg-emerald-500/10 text-emerald-500">{t('news.live')}</span>
                     )}
-                    <span className="text-xs text-slate-500 flex items-center gap-1">
+                    <span className="text-xs text-[var(--text-muted)] flex items-center gap-1">
                       <Clock className="w-3 h-3" />
                       {item.date}
                     </span>
                   </div>
-                  <h3 className="text-sm font-medium text-white leading-snug mb-2 line-clamp-2">{title}</h3>
-                  <p className="text-xs text-slate-500">{item.source}</p>
+                  <h3 className="text-sm font-medium text-[var(--text-primary)] leading-snug mb-2 line-clamp-2">{title}</h3>
+                  <p className="text-xs text-[var(--text-muted)]">{item.source}</p>
                 </Wrapper>
               );
             })}
@@ -832,7 +832,7 @@ export default function Dashboard() {
 
         {/* Upcoming Events */}
         <DashboardSection title={t('dashboard.upcomingEvents')} defaultOpen={true} storageKey="upcomingEvents">
-        <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
           <EarningsCalendar />
         </div>
         </DashboardSection>

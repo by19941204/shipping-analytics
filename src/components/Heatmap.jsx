@@ -154,7 +154,7 @@ export default function Heatmap() {
     return (
       <div key={group.label || 'all'} className="flex-1 min-w-0">
         {group.label && (
-          <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1.5 px-1">
+          <div className="text-xs font-semibold text-[var(--text-secondary)] uppercase tracking-wider mb-1.5 px-1">
             {group.label}
           </div>
         )}
@@ -167,10 +167,10 @@ export default function Heatmap() {
   }
 
   return (
-    <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-8">
+    <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-8">
       <div className="flex items-center justify-between mb-4 flex-wrap gap-3">
-        <h2 className="text-lg font-semibold text-white">{t('dashboard.heatmap')}</h2>
-        <div className="flex items-center gap-1 bg-slate-800/50 rounded-lg p-0.5">
+        <h2 className="text-lg font-semibold text-[var(--text-primary)]">{t('dashboard.heatmap')}</h2>
+        <div className="flex items-center gap-1 bg-[var(--bg-card)]/50 rounded-lg p-0.5">
           {viewModes.map(mode => (
             <button
               key={mode.key}
@@ -178,7 +178,7 @@ export default function Heatmap() {
               className={`px-3 py-1.5 rounded-md text-xs font-medium transition-all duration-200 cursor-pointer ${
                 viewMode === mode.key
                   ? 'bg-blue-600 text-white shadow-sm'
-                  : 'text-slate-400 hover:text-white hover:bg-slate-700/50'
+                  : 'text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]/50'
               }`}
             >
               {mode.label}
@@ -188,7 +188,7 @@ export default function Heatmap() {
       </div>
 
       {/* Color legend */}
-      <div className="flex items-center justify-center gap-1 mb-4 text-[10px] text-slate-400">
+      <div className="flex items-center justify-center gap-1 mb-4 text-[10px] text-[var(--text-secondary)]">
         <span>-5%+</span>
         <div className="flex gap-0 rounded overflow-hidden">
           {[

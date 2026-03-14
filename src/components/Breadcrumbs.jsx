@@ -8,13 +8,13 @@ export default function Breadcrumbs({ items }) {
         const isLast = i === items.length - 1;
         return (
           <span key={item.path} className="flex items-center gap-1.5">
-            {i > 0 && <ChevronRight className="w-3.5 h-3.5 text-slate-600" />}
+            {i > 0 && <ChevronRight className="w-3.5 h-3.5 text-[var(--text-muted)]" />}
             {isLast ? (
-              <span className="text-white font-medium">{item.label}</span>
+              <span className="text-[var(--text-primary)] font-medium">{item.label}</span>
             ) : (
               <Link
                 to={item.path}
-                className="text-slate-500 hover:text-slate-300 transition-colors"
+                className="text-[var(--text-muted)] hover:text-[var(--text-secondary)] transition-colors"
               >
                 {item.label}
               </Link>

@@ -41,8 +41,8 @@ const countryFlags = {
 function CustomTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg px-3 py-2 shadow-xl">
-      <p className="text-xs text-slate-400">{label}</p>
+    <div className="bg-[var(--bg-card)]/95 backdrop-blur-sm border border-[var(--border-color)] rounded-lg px-3 py-2 shadow-xl">
+      <p className="text-xs text-[var(--text-secondary)]">{label}</p>
       {payload.map((p, i) => (
         <p key={i} className="text-sm font-semibold" style={{ color: p.color || '#fff' }}>
           {p.name}: {typeof p.value === 'number' ? p.value.toLocaleString() : p.value}
@@ -329,23 +329,23 @@ export default function Compare() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0b0e17] text-white">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Header */}
         <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white">{t('compare.title')}</h1>
-          <p className="text-slate-400 mt-1">{t('compare.subtitle')}</p>
-          <p className="text-xs text-slate-600 mt-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">{t('compare.title')}</h1>
+          <p className="text-[var(--text-secondary)] mt-1">{t('compare.subtitle')}</p>
+          <p className="text-xs text-[var(--text-muted)] mt-1">
             {'※ ' + t('compare.usdDisclaimer')}
           </p>
         </div>
 
         {/* Company Selector */}
-        <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-6">
-          <h2 className="text-sm font-medium text-slate-400 uppercase tracking-wider mb-3">
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-6">
+          <h2 className="text-sm font-medium text-[var(--text-secondary)] uppercase tracking-wider mb-3">
             {t('compare.presets')}
           </h2>
-          <div className="flex flex-nowrap gap-2 overflow-x-auto pb-3 mb-4 border-b border-slate-800/40">
+          <div className="flex flex-nowrap gap-2 overflow-x-auto pb-3 mb-4 border-b border-[var(--border-color)]">
             {presets.map((preset) => {
               const presetSet = new Set(preset.ids);
               const isActive = preset.key !== 'reset' && setsEqual(selected, presetSet);
@@ -356,7 +356,7 @@ export default function Compare() {
                   className={`flex-shrink-0 px-3 py-1 rounded-full text-xs font-medium transition-all duration-200 border cursor-pointer whitespace-nowrap ${
                     isActive
                       ? 'bg-indigo-500/30 border-indigo-500/60 text-indigo-300'
-                      : 'bg-indigo-500/10 border-indigo-500/30 text-slate-400 hover:text-indigo-300 hover:bg-indigo-500/20'
+                      : 'bg-indigo-500/10 border-indigo-500/30 text-[var(--text-secondary)] hover:text-indigo-300 hover:bg-indigo-500/20'
                   }`}
                 >
                   {t(`compare.${preset.key}`)}
@@ -364,7 +364,7 @@ export default function Compare() {
               );
             })}
           </div>
-          <h2 className="text-sm font-medium text-slate-400 uppercase tracking-wider mb-4">
+          <h2 className="text-sm font-medium text-[var(--text-secondary)] uppercase tracking-wider mb-4">
             {t('compare.selectCompanies')}
           </h2>
           <div className="flex flex-wrap gap-2">
@@ -398,8 +398,8 @@ export default function Compare() {
               onClick={() => setActiveSection(s.id)}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer ${
                 activeSection === s.id
-                  ? 'bg-blue-600 text-white shadow-lg shadow-blue-600/20'
-                  : 'bg-slate-800/50 text-slate-400 hover:text-slate-200 hover:bg-slate-700/50'
+                  ? 'bg-blue-600 text-[var(--text-primary)] shadow-lg shadow-blue-600/20'
+                  : 'bg-[var(--bg-card)]/50 text-[var(--text-secondary)] hover:text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)]/50'
               }`}
             >
               {s.label}
@@ -408,7 +408,7 @@ export default function Compare() {
         </div>
 
         {selectedCompanies.length === 0 && (
-          <div className="text-center py-20 text-slate-500">
+          <div className="text-center py-20 text-[var(--text-muted)]">
             {t('compare.selectPrompt')}
           </div>
         )}
@@ -416,22 +416,22 @@ export default function Compare() {
         {selectedCompanies.length > 0 && activeSection === 'overview' && (
           <>
             {/* Key Metrics Comparison Table (USD normalized) */}
-            <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-6 overflow-x-auto">
+            <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-6 overflow-x-auto">
               <div className="flex items-center justify-between mb-4">
-                <h2 className="text-lg font-semibold text-white">
+                <h2 className="text-lg font-semibold text-[var(--text-primary)]">
                   {t('compare.keyMetricsUSD')}
                 </h2>
                 <ExportButton onClick={handleExportCSV} label={t('common.csv')} />
               </div>
               <table className="w-full min-w-[600px]">
                 <thead>
-                  <tr className="border-b border-slate-700/50">
-                    <th className="text-left pb-3 pr-4 text-xs font-medium text-slate-400 uppercase tracking-wider">{t('compare.metric')}</th>
+                  <tr className="border-b border-[var(--border-color)]">
+                    <th className="text-left pb-3 pr-4 text-xs font-medium text-[var(--text-secondary)] uppercase tracking-wider">{t('compare.metric')}</th>
                     {normalizedData.map(c => (
                       <th key={c.id} className="text-right pb-3 px-3">
                         <div className="flex flex-col items-end gap-0.5">
                           <span className="text-xs">{countryFlags[c.country]}</span>
-                          <span className="text-sm font-semibold text-white">{c.name[language]}</span>
+                          <span className="text-sm font-semibold text-[var(--text-primary)]">{c.name[language]}</span>
                         </div>
                       </th>
                     ))}
@@ -461,10 +461,10 @@ export default function Compare() {
                     { label: t('company.debtEquity'), render: c => c.debtEquity.toFixed(2) },
                     { label: t('compare.netDebtEbitda'), render: c => c.netDebt && c.ebitda ? (c.netDebt / c.ebitda).toFixed(2) + 'x' : '-' },
                   ].map((row, i) => (
-                    <tr key={i} className={`border-b border-slate-800/30 transition-colors duration-150 hover:bg-white/[0.03] ${row.highlight ? 'bg-blue-500/[0.03]' : i % 2 === 0 ? 'bg-slate-900/20' : ''}`}>
-                      <td className="py-2.5 pr-4 text-sm text-slate-400 font-medium whitespace-nowrap">{row.label}</td>
+                    <tr key={i} className={`border-b border-[var(--border-color)] transition-colors duration-150 hover:bg-white/[0.03] ${row.highlight ? 'bg-blue-500/[0.03]' : i % 2 === 0 ? 'bg-[var(--bg-primary)]/20' : ''}`}>
+                      <td className="py-2.5 pr-4 text-sm text-[var(--text-secondary)] font-medium whitespace-nowrap">{row.label}</td>
                       {normalizedData.map(c => (
-                        <td key={c.id} className="py-2.5 px-3 text-right text-sm font-medium text-slate-200">
+                        <td key={c.id} className="py-2.5 px-3 text-right text-sm font-medium text-[var(--text-primary)]">
                           {row.render(c)}
                         </td>
                       ))}
@@ -475,14 +475,14 @@ export default function Compare() {
             </div>
 
             {/* Radar Chart */}
-            <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-6">
-              <h2 className="text-lg font-semibold text-white mb-2">{t('compare.radarTitle')}</h2>
-              <p className="text-sm text-slate-400 mb-4">{t('compare.radarSubtitle')}</p>
+            <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-6">
+              <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-2">{t('compare.radarTitle')}</h2>
+              <p className="text-sm text-[var(--text-secondary)] mb-4">{t('compare.radarSubtitle')}</p>
               <div className="flex flex-wrap gap-4 mb-4">
                 {normalizedData.map(c => (
                   <div key={c.id} className="flex items-center gap-2 text-sm">
                     <span className="w-3 h-3 rounded-full" style={{ backgroundColor: c.color }} />
-                    <span className="text-slate-300">{c.name[language]}</span>
+                    <span className="text-[var(--text-primary)]">{c.name[language]}</span>
                   </div>
                 ))}
               </div>
@@ -500,11 +500,11 @@ export default function Compare() {
             </div>
 
             {/* Bubble Chart: Market Cap vs P/E vs Dividend */}
-            <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
-              <h2 className="text-lg font-semibold text-white mb-2">
+            <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
+              <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-2">
                 {t('compare.valuationMap')}
               </h2>
-              <p className="text-sm text-slate-400 mb-4">
+              <p className="text-sm text-[var(--text-secondary)] mb-4">
                 {t('compare.valuationMapDesc')}
               </p>
               <ResponsiveContainer width="100%" height={350}>
@@ -517,11 +517,11 @@ export default function Compare() {
                     if (!active || !payload?.length) return null;
                     const d = payload[0].payload;
                     return (
-                      <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg px-3 py-2 shadow-xl">
-                        <p className="text-sm font-semibold text-white">{d.name}</p>
-                        <p className="text-xs text-slate-400">{t('company.peRatio')}: {d.x}x</p>
-                        <p className="text-xs text-slate-400">{t('company.marketCap')}: ${d.y.toFixed(1)}B</p>
-                        <p className="text-xs text-slate-400">{t('company.dividendYield')}: {d.dividend}%</p>
+                      <div className="bg-[var(--bg-card)]/95 backdrop-blur-sm border border-[var(--border-color)] rounded-lg px-3 py-2 shadow-xl">
+                        <p className="text-sm font-semibold text-[var(--text-primary)]">{d.name}</p>
+                        <p className="text-xs text-[var(--text-secondary)]">{t('company.peRatio')}: {d.x}x</p>
+                        <p className="text-xs text-[var(--text-secondary)]">{t('company.marketCap')}: ${d.y.toFixed(1)}B</p>
+                        <p className="text-xs text-[var(--text-secondary)]">{t('company.dividendYield')}: {d.dividend}%</p>
                       </div>
                     );
                   }} />
@@ -541,8 +541,8 @@ export default function Compare() {
             {/* Valuation Bar Charts */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
               {/* P/E Comparison */}
-              <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
-                <h3 className="text-md font-semibold text-white mb-4">
+              <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
+                <h3 className="text-md font-semibold text-[var(--text-primary)] mb-4">
                   {t('compare.peComparison')}
                 </h3>
                 <ResponsiveContainer width="100%" height={normalizedData.length * 48 + 20}>
@@ -557,8 +557,8 @@ export default function Compare() {
               </div>
 
               {/* EV/EBITDA Comparison */}
-              <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
-                <h3 className="text-md font-semibold text-white mb-4">{t('company.evEbitda')}</h3>
+              <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
+                <h3 className="text-md font-semibold text-[var(--text-primary)] mb-4">{t('company.evEbitda')}</h3>
                 <ResponsiveContainer width="100%" height={normalizedData.length * 48 + 20}>
                   <BarChart data={[...normalizedData].sort((a, b) => {
                     const aVal = (a.marketCapUSD + toUSD(a.netDebt * 1e6, a.currency)) / toUSD(a.ebitda * 1e6, a.currency);
@@ -580,8 +580,8 @@ export default function Compare() {
             </div>
 
             {/* Profitability Comparison */}
-            <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-6">
-              <h3 className="text-lg font-semibold text-white mb-4">
+            <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-6">
+              <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
                 {t('compare.profitabilityComparison')}
               </h3>
               <ResponsiveContainer width="100%" height={300}>
@@ -599,8 +599,8 @@ export default function Compare() {
             </div>
 
             {/* Dividend & FCF Yield */}
-            <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-white mb-4">
+            <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
                 {t('compare.dividendFcfYield')}
               </h3>
               <ResponsiveContainer width="100%" height={300}>
@@ -626,9 +626,9 @@ export default function Compare() {
         {selectedCompanies.length > 0 && activeSection === 'performance' && (
           <>
             {/* Stock Price Performance (indexed to 100) */}
-            <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-6">
+            <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-6">
               <div className="flex items-center justify-between mb-2">
-                <h3 className="text-lg font-semibold text-white">
+                <h3 className="text-lg font-semibold text-[var(--text-primary)]">
                   {t('compare.stockPerformance')}
                 </h3>
                 <div className="flex gap-1">
@@ -639,7 +639,7 @@ export default function Compare() {
                       className={`px-3 py-1 text-xs rounded font-medium transition-colors cursor-pointer ${
                         perfPeriod === p
                           ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                          : 'text-slate-500 hover:text-slate-300'
+                          : 'text-[var(--text-muted)] hover:text-[var(--text-primary)]'
                       }`}
                     >
                       {p}
@@ -647,14 +647,14 @@ export default function Compare() {
                   ))}
                 </div>
               </div>
-              <p className="text-sm text-slate-400 mb-4">
+              <p className="text-sm text-[var(--text-secondary)] mb-4">
                 {t('compare.stockPerformanceDesc')}
               </p>
               <div className="flex flex-wrap gap-4 mb-4">
                 {normalizedData.map(c => (
                   <div key={c.id} className="flex items-center gap-2 text-sm">
                     <span className="w-3 h-3 rounded-full" style={{ backgroundColor: c.color }} />
-                    <span className="text-slate-300">{c.name[language]}</span>
+                    <span className="text-[var(--text-primary)]">{c.name[language]}</span>
                     <span className={`text-xs font-medium ${c.change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                       {formatPercent(c.change)}
                     </span>
@@ -676,8 +676,8 @@ export default function Compare() {
             </div>
 
             {/* Market Cap Ranking (USD) */}
-            <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-white mb-4">
+            <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
                 {t('compare.marketCapRanking')}
               </h3>
               <ResponsiveContainer width="100%" height={companies.length * 44 + 20}>
@@ -705,8 +705,8 @@ export default function Compare() {
           <>
             {/* Fleet Size Comparison */}
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
-              <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
-                <h3 className="text-md font-semibold text-white mb-4">
+              <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
+                <h3 className="text-md font-semibold text-[var(--text-primary)] mb-4">
                   {t('compare.vesselCount')}
                 </h3>
                 <ResponsiveContainer width="100%" height={normalizedData.length * 48 + 20}>
@@ -720,8 +720,8 @@ export default function Compare() {
                 </ResponsiveContainer>
               </div>
 
-              <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
-                <h3 className="text-md font-semibold text-white mb-4">{t('company.teuCapacity')}</h3>
+              <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
+                <h3 className="text-md font-semibold text-[var(--text-primary)] mb-4">{t('company.teuCapacity')}</h3>
                 <ResponsiveContainer width="100%" height={normalizedData.length * 48 + 20}>
                   <BarChart data={[...fleetData].sort((a, b) => b.teu - a.teu)} layout="vertical">
                     <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" horizontal={false} />
@@ -735,8 +735,8 @@ export default function Compare() {
             </div>
 
             {/* Fleet Utilization & Age */}
-            <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-6">
-              <h3 className="text-lg font-semibold text-white mb-4">
+            <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-6">
+              <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
                 {t('compare.utilizationAge')}
               </h3>
               <ResponsiveContainer width="100%" height={300}>
@@ -753,17 +753,17 @@ export default function Compare() {
             </div>
 
             {/* Order Book */}
-            <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
-              <h3 className="text-lg font-semibold text-white mb-4">
+            <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
+              <h3 className="text-lg font-semibold text-[var(--text-primary)] mb-4">
                 {t('compare.orderBookTitle')}
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
                 {[...normalizedData].sort((a, b) => b.orderBook - a.orderBook).map(c => (
-                  <div key={c.id} className="text-center p-4 rounded-xl bg-slate-900/50 border border-slate-800/40">
+                  <div key={c.id} className="text-center p-4 rounded-xl bg-[var(--bg-primary)]/50 border border-[var(--border-color)]">
                     <div className="text-3xl font-bold mb-1" style={{ color: c.color }}>{c.orderBook}</div>
-                    <div className="text-xs text-slate-400">{t('compare.vesselUnit')}</div>
-                    <div className="text-sm font-medium text-slate-300 mt-2">{c.name[language]}</div>
-                    <div className="text-xs text-slate-500 mt-1">{t('company.alliance')}: {c.alliance}</div>
+                    <div className="text-xs text-[var(--text-secondary)]">{t('compare.vesselUnit')}</div>
+                    <div className="text-sm font-medium text-[var(--text-primary)] mt-2">{c.name[language]}</div>
+                    <div className="text-xs text-[var(--text-muted)] mt-1">{t('company.alliance')}: {c.alliance}</div>
                   </div>
                 ))}
               </div>
@@ -772,16 +772,16 @@ export default function Compare() {
         )}
 
         {selectedCompanies.length >= 2 && activeSection === 'correlation' && (
-          <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
-            <h2 className="text-lg font-semibold text-white mb-2">{t('compare.correlation')}</h2>
-            <p className="text-sm text-slate-400 mb-6">{t('compare.correlationDesc')}</p>
+          <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
+            <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-2">{t('compare.correlation')}</h2>
+            <p className="text-sm text-[var(--text-secondary)] mb-6">{t('compare.correlationDesc')}</p>
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr>
                     <th className="p-2" />
                     {selectedCompanies.map(c => (
-                      <th key={c.id} className="p-2 text-xs font-medium text-slate-400 text-center whitespace-nowrap">
+                      <th key={c.id} className="p-2 text-xs font-medium text-[var(--text-secondary)] text-center whitespace-nowrap">
                         {c.name[language]}
                       </th>
                     ))}
@@ -790,7 +790,7 @@ export default function Compare() {
                 <tbody>
                   {correlationMatrix.map((row, ri) => (
                     <tr key={row.id}>
-                      <td className="p-2 text-xs font-medium text-slate-400 whitespace-nowrap">{row.name}</td>
+                      <td className="p-2 text-xs font-medium text-[var(--text-secondary)] whitespace-nowrap">{row.name}</td>
                       {row.cells.map((val, ci) => {
                         // Color: red(-1) -> white(0) -> green(+1)
                         const r = val < 0 ? 255 : Math.round(255 * (1 - val));
@@ -813,7 +813,7 @@ export default function Compare() {
                 </tbody>
               </table>
             </div>
-            <div className="flex items-center justify-center gap-2 mt-4 text-xs text-slate-500">
+            <div className="flex items-center justify-center gap-2 mt-4 text-xs text-[var(--text-muted)]">
               <div className="flex items-center gap-1">
                 <span className="w-4 h-3 rounded" style={{ backgroundColor: 'rgb(255,0,0)' }} />
                 <span>-1</span>
@@ -831,7 +831,7 @@ export default function Compare() {
         )}
 
         {selectedCompanies.length < 2 && activeSection === 'correlation' && (
-          <div className="text-center py-20 text-slate-500">
+          <div className="text-center py-20 text-[var(--text-muted)]">
             {t('compare.selectPrompt')}
           </div>
         )}

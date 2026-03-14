@@ -22,7 +22,7 @@ export default function WatchlistButton({ companyId, size = 'md' }) {
         className={`${sizeClasses} transition-all duration-200 ${
           watched
             ? 'fill-yellow-400 text-yellow-400'
-            : 'text-slate-500 hover:text-slate-300'
+            : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
         }`}
       />
     </button>

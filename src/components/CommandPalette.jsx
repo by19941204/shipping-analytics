@@ -121,10 +121,10 @@ export default function CommandPalette({ open, onClose }) {
   return (
     <div className="fixed inset-0 z-[100] flex items-start justify-center pt-[20vh]">
       <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative w-full max-w-lg rounded-xl border border-slate-700 bg-slate-900/95 backdrop-blur shadow-2xl">
+      <div className="relative w-full max-w-lg rounded-xl border border-[var(--border-color)] bg-[var(--bg-primary)]/95 backdrop-blur shadow-2xl">
         {/* Search input */}
-        <div className="flex items-center gap-3 border-b border-slate-700/60 px-4 py-3">
-          <Search className="w-5 h-5 text-slate-400 shrink-0" />
+        <div className="flex items-center gap-3 border-b border-[var(--border-color)] px-4 py-3">
+          <Search className="w-5 h-5 text-[var(--text-secondary)] shrink-0" />
           <input
             ref={inputRef}
             type="text"
@@ -132,9 +132,9 @@ export default function CommandPalette({ open, onClose }) {
             onChange={(e) => setQuery(e.target.value)}
             onKeyDown={handleKeyDown}
             placeholder={t('search.placeholder')}
-            className="flex-1 bg-transparent text-sm text-white placeholder-slate-500 outline-none"
+            className="flex-1 bg-transparent text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] outline-none"
           />
-          <kbd className="hidden sm:inline-flex items-center gap-1 rounded bg-slate-800 px-1.5 py-0.5 text-[10px] font-mono text-slate-500 border border-slate-700">
+          <kbd className="hidden sm:inline-flex items-center gap-1 rounded bg-[var(--bg-card)] px-1.5 py-0.5 text-[10px] font-mono text-[var(--text-muted)] border border-[var(--border-color)]">
             ESC
           </kbd>
         </div>
@@ -142,14 +142,14 @@ export default function CommandPalette({ open, onClose }) {
         {/* Results */}
         <div ref={listRef} className="max-h-80 overflow-y-auto p-2">
           {allItems.length === 0 && (
-            <div className="py-8 text-center text-sm text-slate-500">
+            <div className="py-8 text-center text-sm text-[var(--text-muted)]">
               {t('search.noResults')}
             </div>
           )}
 
           {results.pages.length > 0 && (
             <>
-              <div className="px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+              <div className="px-2 py-1.5 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">
                 {t('search.pages')}
               </div>
               {results.pages.map((page) => {
@@ -163,11 +163,11 @@ export default function CommandPalette({ open, onClose }) {
                     onClick={() => handleSelect({ ...page, type: 'page' })}
                     className={`w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors cursor-pointer ${
                       selectedIndex === idx
-                        ? 'bg-blue-500/15 text-white'
-                        : 'text-slate-300 hover:bg-white/5'
+                        ? 'bg-blue-500/15 text-[var(--text-primary)]'
+                        : 'text-[var(--text-primary)] hover:bg-white/5'
                     }`}
                   >
-                    <Icon className="w-4 h-4 text-slate-400" />
+                    <Icon className="w-4 h-4 text-[var(--text-secondary)]" />
                     <span>{page.label}</span>
                   </button>
                 );
@@ -177,7 +177,7 @@ export default function CommandPalette({ open, onClose }) {
 
           {results.companies.length > 0 && (
             <>
-              <div className="px-2 py-1.5 mt-1 text-[10px] font-semibold uppercase tracking-wider text-slate-500">
+              <div className="px-2 py-1.5 mt-1 text-[10px] font-semibold uppercase tracking-wider text-[var(--text-muted)]">
                 {t('search.companies')}
               </div>
               {results.companies.map((company) => {
@@ -190,13 +190,13 @@ export default function CommandPalette({ open, onClose }) {
                     onClick={() => handleSelect({ ...company, type: 'company' })}
                     className={`w-full flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm transition-colors cursor-pointer ${
                       selectedIndex === idx
-                        ? 'bg-blue-500/15 text-white'
-                        : 'text-slate-300 hover:bg-white/5'
+                        ? 'bg-blue-500/15 text-[var(--text-primary)]'
+                        : 'text-[var(--text-primary)] hover:bg-white/5'
                     }`}
                   >
                     <span className="text-base">{company.logo}</span>
                     <span className="flex-1 text-left">{company.name}</span>
-                    <span className="text-xs font-mono text-slate-500">{company.ticker}</span>
+                    <span className="text-xs font-mono text-[var(--text-muted)]">{company.ticker}</span>
                   </button>
                 );
               })}

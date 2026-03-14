@@ -17,8 +17,8 @@ const SEGMENT_COLORS = {
 function ChartTooltip({ active, payload, label }) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg px-3 py-2 shadow-xl">
-      <p className="text-xs text-slate-400 mb-1">{label}</p>
+    <div className="bg-[var(--bg-card)]/95 backdrop-blur-sm border border-[var(--border-color)] rounded-lg px-3 py-2 shadow-xl">
+      <p className="text-xs text-[var(--text-secondary)] mb-1">{label}</p>
       {payload.map((p, i) => (
         <p key={i} className="text-sm font-semibold" style={{ color: p.color || '#fff' }}>
           {p.name}: {typeof p.value === 'number' ? p.value.toLocaleString() : p.value}
@@ -67,7 +67,7 @@ export default function MarketAnalysis() {
   const latestGrowth = fleetGrowth[fleetGrowth.length - 1].netGrowth;
 
   return (
-    <div className="min-h-screen bg-[#0b0e17] text-white">
+    <div className="min-h-screen bg-[var(--bg-primary)] text-[var(--text-primary)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <Breadcrumbs items={[
           { label: t('breadcrumb.home'), path: '/' },
@@ -75,37 +75,37 @@ export default function MarketAnalysis() {
         ]} />
 
         <div className="mb-8">
-          <h1 className="text-2xl sm:text-3xl font-bold text-white">{t('market.title')}</h1>
-          <p className="text-slate-400 mt-1">{t('market.subtitle')}</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-[var(--text-primary)]">{t('market.title')}</h1>
+          <p className="text-[var(--text-secondary)] mt-1">{t('market.subtitle')}</p>
         </div>
 
         {/* KPI Cards */}
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-          <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-4">
-            <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('market.totalFleet')}</p>
-            <p className="mt-1 text-2xl font-bold text-white">{totalVessels.toLocaleString()}</p>
-            <p className="text-xs text-slate-500">{t('company.vessels')}</p>
+          <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-4">
+            <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('market.totalFleet')}</p>
+            <p className="mt-1 text-2xl font-bold text-[var(--text-primary)]">{totalVessels.toLocaleString()}</p>
+            <p className="text-xs text-[var(--text-muted)]">{t('company.vessels')}</p>
           </div>
-          <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-4">
-            <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('market.totalOrders')}</p>
+          <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-4">
+            <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('market.totalOrders')}</p>
             <p className="mt-1 text-2xl font-bold text-amber-400">{totalOrders.toLocaleString()}</p>
-            <p className="text-xs text-slate-500">{t('company.vessels')}</p>
+            <p className="text-xs text-[var(--text-muted)]">{t('company.vessels')}</p>
           </div>
-          <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-4">
-            <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('market.orderbookRatio')}</p>
+          <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-4">
+            <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('market.orderbookRatio')}</p>
             <p className="mt-1 text-2xl font-bold text-blue-400">{orderbookPct}%</p>
-            <p className="text-xs text-slate-500">{t('market.ofFleet')}</p>
+            <p className="text-xs text-[var(--text-muted)]">{t('market.ofFleet')}</p>
           </div>
-          <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-4">
-            <p className="text-[10px] uppercase tracking-wider text-slate-500">{t('market.netGrowth')}</p>
+          <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-4">
+            <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">{t('market.netGrowth')}</p>
             <p className="mt-1 text-2xl font-bold text-emerald-400">{latestGrowth}%</p>
-            <p className="text-xs text-slate-500">2026</p>
+            <p className="text-xs text-[var(--text-muted)]">2026</p>
           </div>
         </div>
 
         {/* Section 1: Global Fleet Overview */}
-        <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-6">
-          <h2 className="text-lg font-semibold text-white mb-4">{t('market.globalFleet')}</h2>
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-6">
+          <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">{t('market.globalFleet')}</h2>
           <ResponsiveContainer width="100%" height={320}>
             <BarChart data={fleetChartData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
@@ -125,7 +125,7 @@ export default function MarketAnalysis() {
             {globalFleet.map((s) => (
               <div key={s.segment} className="flex items-center gap-2 text-sm">
                 <span className="w-3 h-3 rounded-full" style={{ backgroundColor: SEGMENT_COLORS[s.segment] }} />
-                <span className="text-slate-300">{segmentLabel(s.segment)}</span>
+                <span className="text-[var(--text-primary)]">{segmentLabel(s.segment)}</span>
                 <span className="text-xs text-emerald-400">+{s.growth}%</span>
               </div>
             ))}
@@ -133,8 +133,8 @@ export default function MarketAnalysis() {
         </div>
 
         {/* Section 2: Orderbook Pipeline */}
-        <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-6">
-          <h2 className="text-lg font-semibold text-white mb-4">{t('market.orderbook')}</h2>
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-6">
+          <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">{t('market.orderbook')}</h2>
           <ResponsiveContainer width="100%" height={320}>
             <BarChart data={orderbookData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
@@ -151,8 +151,8 @@ export default function MarketAnalysis() {
         </div>
 
         {/* Section 3: Fleet Growth */}
-        <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6 mb-6">
-          <h2 className="text-lg font-semibold text-white mb-4">{t('market.fleetGrowth')}</h2>
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6 mb-6">
+          <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">{t('market.fleetGrowth')}</h2>
           <ResponsiveContainer width="100%" height={320}>
             <LineChart data={growthData} margin={{ top: 10, right: 10, left: -10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
@@ -169,19 +169,19 @@ export default function MarketAnalysis() {
         </div>
 
         {/* Section 4: Supply/Demand Balance */}
-        <div className="bg-[#111827] border border-slate-800/60 rounded-xl p-6">
-          <h2 className="text-lg font-semibold text-white mb-4">{t('market.supplyDemand')}</h2>
+        <div className="bg-[var(--bg-card)] border border-[var(--border-color)] rounded-xl p-6">
+          <h2 className="text-lg font-semibold text-[var(--text-primary)] mb-4">{t('market.supplyDemand')}</h2>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
             {/* Supply indicator */}
             <div className="text-center">
-              <p className="text-xs uppercase tracking-wider text-slate-500 mb-2">{t('market.supplyGrowth')}</p>
+              <p className="text-xs uppercase tracking-wider text-[var(--text-muted)] mb-2">{t('market.supplyGrowth')}</p>
               <div className="relative w-28 h-28 mx-auto">
                 <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
                   <circle cx="50" cy="50" r="42" fill="none" stroke="#1e293b" strokeWidth="8" />
                   <circle cx="50" cy="50" r="42" fill="none" stroke="#f59e0b" strokeWidth="8" strokeLinecap="round"
                     strokeDasharray={`${latestGrowth * 26.4} 264`} />
                 </svg>
-                <span className="absolute inset-0 flex items-center justify-center text-xl font-bold text-white">
+                <span className="absolute inset-0 flex items-center justify-center text-xl font-bold text-[var(--text-primary)]">
                   {latestGrowth}%
                 </span>
               </div>
@@ -189,12 +189,12 @@ export default function MarketAnalysis() {
 
             {/* Balance gauge */}
             <div className="text-center">
-              <p className="text-xs uppercase tracking-wider text-slate-500 mb-2">{t('market.balance')}</p>
+              <p className="text-xs uppercase tracking-wider text-[var(--text-muted)] mb-2">{t('market.balance')}</p>
               <div className="flex flex-col items-center gap-2">
-                <div className="w-full h-4 rounded-full bg-slate-800 relative overflow-hidden">
+                <div className="w-full h-4 rounded-full bg-[var(--bg-card)] relative overflow-hidden">
                   <div className="absolute inset-y-0 left-0 bg-gradient-to-r from-emerald-500 to-amber-500 rounded-full" style={{ width: '62%' }} />
                 </div>
-                <div className="flex justify-between w-full text-[10px] text-slate-500">
+                <div className="flex justify-between w-full text-[10px] text-[var(--text-muted)]">
                   <span>{t('market.oversupply')}</span>
                   <span>{t('market.tight')}</span>
                 </div>
@@ -206,14 +206,14 @@ export default function MarketAnalysis() {
 
             {/* Demand indicator */}
             <div className="text-center">
-              <p className="text-xs uppercase tracking-wider text-slate-500 mb-2">{t('market.demandGrowth')}</p>
+              <p className="text-xs uppercase tracking-wider text-[var(--text-muted)] mb-2">{t('market.demandGrowth')}</p>
               <div className="relative w-28 h-28 mx-auto">
                 <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
                   <circle cx="50" cy="50" r="42" fill="none" stroke="#1e293b" strokeWidth="8" />
                   <circle cx="50" cy="50" r="42" fill="none" stroke="#10b981" strokeWidth="8" strokeLinecap="round"
                     strokeDasharray={`${3.5 * 26.4} 264`} />
                 </svg>
-                <span className="absolute inset-0 flex items-center justify-center text-xl font-bold text-white">
+                <span className="absolute inset-0 flex items-center justify-center text-xl font-bold text-[var(--text-primary)]">
                   3.5%
                 </span>
               </div>

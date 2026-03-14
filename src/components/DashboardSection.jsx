@@ -47,18 +47,18 @@ export default function DashboardSection({ title, defaultOpen = true, storageKey
   }
 
   return (
-    <div className="border-t border-slate-800/60 pt-2 mb-8">
+    <div className="border-t border-[var(--border-color)] pt-2 mb-8">
       <button
         onClick={toggle}
         className="flex items-center justify-between w-full py-3 group cursor-pointer"
       >
-        <h2 className="text-lg font-semibold text-white group-hover:text-slate-200 transition-colors">
+        <h2 className="text-lg font-semibold text-[var(--text-primary)] group-hover:text-[var(--text-primary)] transition-colors">
           {title}
         </h2>
         {isOpen ? (
-          <ChevronUp className="w-5 h-5 text-slate-500 group-hover:text-slate-300 transition-colors" />
+          <ChevronUp className="w-5 h-5 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors" />
         ) : (
-          <ChevronDown className="w-5 h-5 text-slate-500 group-hover:text-slate-300 transition-colors" />
+          <ChevronDown className="w-5 h-5 text-[var(--text-muted)] group-hover:text-[var(--text-secondary)] transition-colors" />
         )}
       </button>
       <div

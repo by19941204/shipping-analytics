@@ -147,7 +147,7 @@ export default function Screener() {
   }, [sorted, language]);
 
   const SortIcon = ({ field }) => {
-    if (sortKey !== field) return <ArrowUpDown className="w-3 h-3 text-slate-600" />;
+    if (sortKey !== field) return <ArrowUpDown className="w-3 h-3 text-[var(--text-muted)]" />;
     return sortDir === 'asc'
       ? <ChevronUp className="w-3 h-3 text-blue-400" />
       : <ChevronDown className="w-3 h-3 text-blue-400" />;
@@ -179,12 +179,12 @@ export default function Screener() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-2xl font-bold text-white">{t('screener.title')}</h1>
+        <h1 className="text-2xl font-bold text-[var(--text-primary)]">{t('screener.title')}</h1>
       </div>
 
       {/* Preset Filters */}
       <div className="space-y-3">
-        <h2 className="text-sm font-medium text-slate-400">{t('screener.presets')}</h2>
+        <h2 className="text-sm font-medium text-[var(--text-secondary)]">{t('screener.presets')}</h2>
         <div className="flex flex-wrap gap-2">
           {presetButtons.map(({ key, label }) => (
             <button
@@ -192,8 +192,8 @@ export default function Screener() {
               onClick={() => applyPreset(key)}
               className={`px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200 cursor-pointer ${
                 activePreset === key
-                  ? 'bg-blue-600 text-white'
-                  : 'bg-slate-700 text-slate-300 hover:bg-slate-600 hover:text-white'
+                  ? 'bg-blue-600 text-[var(--text-primary)]'
+                  : 'bg-[var(--bg-card-hover)] text-[var(--text-primary)] hover:bg-[var(--bg-card-hover)] hover:text-[var(--text-primary)]'
               }`}
             >
               {label}
@@ -205,11 +205,11 @@ export default function Screener() {
       {/* Custom Filter Builder */}
       <div className="space-y-3">
         {filters.map((filter, index) => (
-          <div key={index} className="flex flex-wrap items-center gap-2 bg-[#111827] rounded-lg px-4 py-2.5">
+          <div key={index} className="flex flex-wrap items-center gap-2 bg-[var(--bg-card)] rounded-lg px-4 py-2.5">
             <select
               value={filter.field}
               onChange={(e) => updateFilter(index, 'field', e.target.value)}
-              className="bg-slate-800 text-slate-200 text-sm rounded-md px-3 py-1.5 border border-slate-700 focus:border-blue-500 focus:outline-none"
+              className="bg-[var(--bg-card)] text-[var(--text-primary)] text-sm rounded-md px-3 py-1.5 border border-[var(--border-color)] focus:border-blue-500 focus:outline-none"
             >
               {FIELDS.map(f => (
                 <option key={f} value={f}>{t(`screener.field.${f}`)}</option>
@@ -219,7 +219,7 @@ export default function Screener() {
             <select
               value={filter.operator}
               onChange={(e) => updateFilter(index, 'operator', e.target.value)}
-              className="bg-slate-800 text-slate-200 text-sm rounded-md px-3 py-1.5 border border-slate-700 focus:border-blue-500 focus:outline-none"
+              className="bg-[var(--bg-card)] text-[var(--text-primary)] text-sm rounded-md px-3 py-1.5 border border-[var(--border-color)] focus:border-blue-500 focus:outline-none"
             >
               {OPERATORS.map(op => (
                 <option key={op} value={op}>{t(`screener.operator.${op}`)}</option>
@@ -231,25 +231,25 @@ export default function Screener() {
               value={filter.value1}
               onChange={(e) => updateFilter(index, 'value1', e.target.value)}
               placeholder="0"
-              className="w-24 bg-slate-800 text-slate-200 text-sm rounded-md px-3 py-1.5 border border-slate-700 focus:border-blue-500 focus:outline-none"
+              className="w-24 bg-[var(--bg-card)] text-[var(--text-primary)] text-sm rounded-md px-3 py-1.5 border border-[var(--border-color)] focus:border-blue-500 focus:outline-none"
             />
 
             {filter.operator === 'between' && (
               <>
-                <span className="text-slate-500 text-sm">{t('screener.and')}</span>
+                <span className="text-[var(--text-muted)] text-sm">{t('screener.and')}</span>
                 <input
                   type="number"
                   value={filter.value2}
                   onChange={(e) => updateFilter(index, 'value2', e.target.value)}
                   placeholder="0"
-                  className="w-24 bg-slate-800 text-slate-200 text-sm rounded-md px-3 py-1.5 border border-slate-700 focus:border-blue-500 focus:outline-none"
+                  className="w-24 bg-[var(--bg-card)] text-[var(--text-primary)] text-sm rounded-md px-3 py-1.5 border border-[var(--border-color)] focus:border-blue-500 focus:outline-none"
                 />
               </>
             )}
 
             <button
               onClick={() => removeFilter(index)}
-              className="p-1 rounded hover:bg-slate-700 text-slate-500 hover:text-red-400 transition-colors cursor-pointer"
+              className="p-1 rounded hover:bg-[var(--bg-card-hover)] text-[var(--text-muted)] hover:text-red-400 transition-colors cursor-pointer"
             >
               <X className="w-4 h-4" />
             </button>
@@ -258,7 +258,7 @@ export default function Screener() {
 
         <button
           onClick={addFilter}
-          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-slate-700 hover:bg-slate-600 text-sm text-slate-300 hover:text-white transition-colors cursor-pointer"
+          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-md bg-[var(--bg-card-hover)] hover:bg-[var(--bg-card-hover)] text-sm text-[var(--text-primary)] hover:text-[var(--text-primary)] transition-colors cursor-pointer"
         >
           <Plus className="w-4 h-4" />
           {t('screener.addFilter')}
@@ -267,24 +267,24 @@ export default function Screener() {
 
       {/* Results Header */}
       <div className="flex items-center justify-between">
-        <p className="text-sm text-slate-400">{matchText}</p>
+        <p className="text-sm text-[var(--text-secondary)]">{matchText}</p>
         <ExportButton onClick={handleExport} label={t('common.csv')} />
       </div>
 
       {/* Results Table */}
       {sorted.length === 0 ? (
-        <div className="text-center py-12 text-slate-500">{t('screener.noResults')}</div>
+        <div className="text-center py-12 text-[var(--text-muted)]">{t('screener.noResults')}</div>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-slate-800/60">
+        <div className="overflow-x-auto rounded-xl border border-[var(--border-color)]">
           <table className="w-full text-sm">
             <thead>
-              <tr className="border-b border-slate-800/60">
+              <tr className="border-b border-[var(--border-color)]">
                 {columns.map(col => (
                   <th
                     key={col.key}
                     onClick={col.sortable ? () => handleSort(col.key) : undefined}
-                    className={`px-4 py-3 text-left text-xs font-medium text-slate-400 whitespace-nowrap ${
-                      col.sortable ? 'cursor-pointer hover:text-slate-200 select-none' : ''
+                    className={`px-4 py-3 text-left text-xs font-medium text-[var(--text-secondary)] whitespace-nowrap ${
+                      col.sortable ? 'cursor-pointer hover:text-[var(--text-primary)] select-none' : ''
                     }`}
                   >
                     <span className="inline-flex items-center gap-1">
@@ -300,24 +300,24 @@ export default function Screener() {
                 <tr
                   key={company.id}
                   onClick={() => navigate(`/company/${company.id}`)}
-                  className="border-b border-slate-800/30 hover:bg-slate-800/40 cursor-pointer transition-colors"
+                  className="border-b border-[var(--border-color)] hover:bg-[var(--bg-card)]/40 cursor-pointer transition-colors"
                 >
-                  <td className="px-4 py-3 text-slate-500">{index + 1}</td>
-                  <td className="px-4 py-3 text-white font-medium whitespace-nowrap">
+                  <td className="px-4 py-3 text-[var(--text-muted)]">{index + 1}</td>
+                  <td className="px-4 py-3 text-[var(--text-primary)] font-medium whitespace-nowrap">
                     <span className="mr-2">{company.logo}</span>
                     {company.name[language]}
                   </td>
-                  <td className="px-4 py-3 text-slate-400 font-mono text-xs">{company.ticker}</td>
-                  <td className="px-4 py-3 text-white">{formatCurrency(company.stockPrice, company.currency)}</td>
+                  <td className="px-4 py-3 text-[var(--text-secondary)] font-mono text-xs">{company.ticker}</td>
+                  <td className="px-4 py-3 text-[var(--text-primary)]">{formatCurrency(company.stockPrice, company.currency)}</td>
                   <td className={`px-4 py-3 font-medium ${company.change >= 0 ? 'text-emerald-400' : 'text-red-400'}`}>
                     {formatPercent(company.change)}
                   </td>
-                  <td className="px-4 py-3 text-slate-300">{company.peRatio.toFixed(1)}</td>
-                  <td className="px-4 py-3 text-slate-300">{company.dividendYield.toFixed(1)}%</td>
-                  <td className="px-4 py-3 text-slate-300">{company.roe.toFixed(1)}%</td>
-                  <td className="px-4 py-3 text-slate-300">{company.ebitdaMargin.toFixed(1)}%</td>
-                  <td className="px-4 py-3 text-slate-300">{company.debtEquity.toFixed(2)}</td>
-                  <td className="px-4 py-3 text-slate-300">{company.fleetUtilization.toFixed(1)}%</td>
+                  <td className="px-4 py-3 text-[var(--text-primary)]">{company.peRatio.toFixed(1)}</td>
+                  <td className="px-4 py-3 text-[var(--text-primary)]">{company.dividendYield.toFixed(1)}%</td>
+                  <td className="px-4 py-3 text-[var(--text-primary)]">{company.roe.toFixed(1)}%</td>
+                  <td className="px-4 py-3 text-[var(--text-primary)]">{company.ebitdaMargin.toFixed(1)}%</td>
+                  <td className="px-4 py-3 text-[var(--text-primary)]">{company.debtEquity.toFixed(2)}</td>
+                  <td className="px-4 py-3 text-[var(--text-primary)]">{company.fleetUtilization.toFixed(1)}%</td>
                 </tr>
               ))}
             </tbody>

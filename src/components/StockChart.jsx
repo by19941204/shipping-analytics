@@ -32,9 +32,9 @@ function CustomTooltip({ active, payload, label, currency, activeIndicators }) {
   const changeColor = change >= 0 ? '#22c55e' : '#ef4444';
 
   return (
-    <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg px-3 py-2 shadow-xl">
-      <p className="text-xs text-slate-400 mb-1">{label}</p>
-      <p className="text-sm font-semibold text-white">
+    <div className="bg-[var(--bg-card)]/95 backdrop-blur-sm border border-[var(--border-color)] rounded-lg px-3 py-2 shadow-xl">
+      <p className="text-xs text-[var(--text-secondary)] mb-1">{label}</p>
+      <p className="text-sm font-semibold text-[var(--text-primary)]">
         {formatCurrency(price, currency)}
       </p>
       {change !== undefined && change !== null && (
@@ -43,7 +43,7 @@ function CustomTooltip({ active, payload, label, currency, activeIndicators }) {
         </p>
       )}
       {data.volume != null && (
-        <p className="text-xs text-slate-500 mt-0.5">
+        <p className="text-xs text-[var(--text-muted)] mt-0.5">
           Vol: {(data.volume / 1e6).toFixed(1)}M
         </p>
       )}
@@ -71,9 +71,9 @@ function RsiTooltip({ active, payload, label }) {
   const val = payload[0]?.value;
   if (val == null) return null;
   return (
-    <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg px-3 py-2 shadow-xl">
-      <p className="text-xs text-slate-400 mb-1">{label}</p>
-      <p className="text-sm font-semibold text-white">RSI: {val.toFixed(1)}</p>
+    <div className="bg-[var(--bg-card)]/95 backdrop-blur-sm border border-[var(--border-color)] rounded-lg px-3 py-2 shadow-xl">
+      <p className="text-xs text-[var(--text-secondary)] mb-1">{label}</p>
+      <p className="text-sm font-semibold text-[var(--text-primary)]">RSI: {val.toFixed(1)}</p>
     </div>
   );
 }
@@ -83,11 +83,11 @@ function MacdTooltip({ active, payload, label }) {
   const data = payload[0]?.payload;
   if (!data) return null;
   return (
-    <div className="bg-slate-800/95 backdrop-blur-sm border border-slate-700 rounded-lg px-3 py-2 shadow-xl">
-      <p className="text-xs text-slate-400 mb-1">{label}</p>
+    <div className="bg-[var(--bg-card)]/95 backdrop-blur-sm border border-[var(--border-color)] rounded-lg px-3 py-2 shadow-xl">
+      <p className="text-xs text-[var(--text-secondary)] mb-1">{label}</p>
       {data.macd != null && <p className="text-xs text-blue-400">MACD: {data.macd.toFixed(3)}</p>}
       {data.macdSignal != null && <p className="text-xs text-orange-400">Signal: {data.macdSignal.toFixed(3)}</p>}
-      {data.macdHist != null && <p className="text-xs text-slate-300">Hist: {data.macdHist.toFixed(3)}</p>}
+      {data.macdHist != null && <p className="text-xs text-[var(--text-primary)]">Hist: {data.macdHist.toFixed(3)}</p>}
     </div>
   );
 }
@@ -172,10 +172,10 @@ export default function StockChart({ data, color = '#3b82f6', currency = 'USD', 
   return (
     <div>
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center gap-4 text-xs text-slate-400">
-          <span>{t('common.high')}: <span className="text-white font-medium">{formatCurrency(high, currency)}</span></span>
-          <span>{t('common.low')}: <span className="text-white font-medium">{formatCurrency(low, currency)}</span></span>
-          <span>{t('common.avg')}: <span className="text-white font-medium">{formatCurrency(avgPrice, currency)}</span></span>
+        <div className="flex items-center gap-4 text-xs text-[var(--text-secondary)]">
+          <span>{t('common.high')}: <span className="text-[var(--text-primary)] font-medium">{formatCurrency(high, currency)}</span></span>
+          <span>{t('common.low')}: <span className="text-[var(--text-primary)] font-medium">{formatCurrency(low, currency)}</span></span>
+          <span>{t('common.avg')}: <span className="text-[var(--text-primary)] font-medium">{formatCurrency(avgPrice, currency)}</span></span>
         </div>
         <div className="flex gap-1">
           {ranges.map(r => (
@@ -185,7 +185,7 @@ export default function StockChart({ data, color = '#3b82f6', currency = 'USD', 
               className={`px-3 py-1 text-xs rounded font-medium transition-colors ${
                 range === r
                   ? 'bg-blue-500/20 text-blue-400 border border-blue-500/30'
-                  : 'text-slate-500 hover:text-slate-300'
+                  : 'text-[var(--text-muted)] hover:text-[var(--text-secondary)]'
               }`}
             >
               {r}
@@ -203,7 +203,7 @@ export default function StockChart({ data, color = '#3b82f6', currency = 'USD', 
             className={`px-2.5 py-1 text-[11px] rounded-full font-medium transition-colors ${
               activeIndicators.includes(ind.key)
                 ? 'bg-blue-600 text-white'
-                : 'bg-slate-700 text-slate-400 hover:bg-slate-600'
+                : 'bg-[var(--bg-card-hover)] text-[var(--text-secondary)] hover:bg-[var(--bg-card-hover)]'
             }`}
           >
             {ind.label}
@@ -310,7 +310,7 @@ export default function StockChart({ data, color = '#3b82f6', currency = 'USD', 
       {/* RSI Sub-chart */}
       {showRsi && (
         <div className="mt-2">
-          <p className="text-[10px] text-slate-500 mb-1 ml-1">RSI (14)</p>
+          <p className="text-[10px] text-[var(--text-muted)] mb-1 ml-1">RSI (14)</p>
           <ResponsiveContainer width="100%" height={80}>
             <ComposedChart data={chartData} margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
@@ -334,7 +334,7 @@ export default function StockChart({ data, color = '#3b82f6', currency = 'USD', 
       {/* MACD Sub-chart */}
       {showMacd && (
         <div className="mt-2">
-          <p className="text-[10px] text-slate-500 mb-1 ml-1">MACD (12,26,9)</p>
+          <p className="text-[10px] text-[var(--text-muted)] mb-1 ml-1">MACD (12,26,9)</p>
           <ResponsiveContainer width="100%" height={80}>
             <ComposedChart data={chartData} margin={{ top: 5, right: 5, left: -10, bottom: 0 }}>
               <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />

@@ -31,21 +31,21 @@ export default function Watchlist() {
 
   if (watchedCompanies.length === 0) {
     return (
-      <div className="min-h-screen bg-[#0b0e17] px-4 py-8 sm:px-6 lg:px-8">
+      <div className="min-h-screen bg-[var(--bg-primary)] px-4 py-8 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <Breadcrumbs items={[
             { label: t('breadcrumb.home'), path: '/' },
             { label: t('nav.watchlist'), path: '/watchlist' },
           ]} />
-          <h1 className="mb-8 text-2xl font-bold text-white sm:text-3xl">
+          <h1 className="mb-8 text-2xl font-bold text-[var(--text-primary)] sm:text-3xl">
             {t('watchlist.title')}
           </h1>
-          <div className="flex flex-col items-center justify-center rounded-xl border border-slate-800/60 bg-[#111827] py-20">
-            <Star className="mb-4 h-12 w-12 text-slate-600" />
-            <p className="text-lg font-medium text-slate-400">
+          <div className="flex flex-col items-center justify-center rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] py-20">
+            <Star className="mb-4 h-12 w-12 text-[var(--text-muted)]" />
+            <p className="text-lg font-medium text-[var(--text-secondary)]">
               {t('watchlist.empty')}
             </p>
-            <p className="mt-2 text-sm text-slate-500">
+            <p className="mt-2 text-sm text-[var(--text-muted)]">
               {t('watchlist.addPrompt')}
             </p>
           </div>
@@ -55,38 +55,38 @@ export default function Watchlist() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0b0e17] px-4 py-8 sm:px-6 lg:px-8">
+    <div className="min-h-screen bg-[var(--bg-primary)] px-4 py-8 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-7xl">
         <Breadcrumbs items={[
           { label: t('breadcrumb.home'), path: '/' },
           { label: t('nav.watchlist'), path: '/watchlist' },
         ]} />
 
-        <h1 className="mb-8 text-2xl font-bold text-white sm:text-3xl">
+        <h1 className="mb-8 text-2xl font-bold text-[var(--text-primary)] sm:text-3xl">
           {t('watchlist.title')}
         </h1>
 
         {/* Summary Cards */}
         <div className="mb-8 grid grid-cols-1 gap-4 sm:grid-cols-3">
-          <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
+          <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
             <div className="flex items-center gap-2 mb-2">
               <Briefcase className="h-4 w-4 text-blue-400" />
-              <p className="text-[10px] uppercase tracking-wider text-slate-500">
+              <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">
                 {t('watchlist.totalValue')}
               </p>
             </div>
-            <p className="text-2xl font-bold text-white">
+            <p className="text-2xl font-bold text-[var(--text-primary)]">
               {summary.totalValue > 0 ? summary.totalValue.toLocaleString() : '--'}
             </p>
           </div>
-          <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
+          <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
             <div className="flex items-center gap-2 mb-2">
               {summary.totalGainLoss >= 0 ? (
                 <TrendingUp className="h-4 w-4 text-emerald-400" />
               ) : (
                 <TrendingDown className="h-4 w-4 text-red-400" />
               )}
-              <p className="text-[10px] uppercase tracking-wider text-slate-500">
+              <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">
                 {t('watchlist.gainLoss')}
               </p>
             </div>
@@ -94,52 +94,52 @@ export default function Watchlist() {
               {summary.totalGainLoss !== 0 ? summary.totalGainLoss.toLocaleString() : '--'}
             </p>
           </div>
-          <div className="rounded-xl border border-slate-800/60 bg-[#111827] p-5">
+          <div className="rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)] p-5">
             <div className="flex items-center gap-2 mb-2">
               <Star className="h-4 w-4 text-yellow-400" />
-              <p className="text-[10px] uppercase tracking-wider text-slate-500">
+              <p className="text-[10px] uppercase tracking-wider text-[var(--text-muted)]">
                 {t('watchlist.positions')}
               </p>
             </div>
-            <p className="text-2xl font-bold text-white">
+            <p className="text-2xl font-bold text-[var(--text-primary)]">
               {summary.positions}
             </p>
           </div>
         </div>
 
         {/* Watchlist Table */}
-        <div className="overflow-x-auto rounded-xl border border-slate-800/60 bg-[#111827]">
+        <div className="overflow-x-auto rounded-xl border border-[var(--border-color)] bg-[var(--bg-card)]">
           <table className="w-full text-left text-sm">
             <thead>
-              <tr className="border-b border-slate-800/60">
-                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-slate-500 font-medium">
+              <tr className="border-b border-[var(--border-color)]">
+                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-[var(--text-muted)] font-medium">
                   {t('dashboard.company')}
                 </th>
-                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-slate-500 font-medium">
+                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-[var(--text-muted)] font-medium">
                   {t('dashboard.ticker')}
                 </th>
-                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-slate-500 font-medium text-right">
+                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-[var(--text-muted)] font-medium text-right">
                   {t('company.stockPrice')}
                 </th>
-                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-slate-500 font-medium text-right">
+                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-[var(--text-muted)] font-medium text-right">
                   {t('dashboard.change')}
                 </th>
-                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-slate-500 font-medium text-right">
+                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-[var(--text-muted)] font-medium text-right">
                   {t('watchlist.shares')}
                 </th>
-                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-slate-500 font-medium text-right">
+                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-[var(--text-muted)] font-medium text-right">
                   {t('watchlist.costBasis')}
                 </th>
-                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-slate-500 font-medium text-right">
+                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-[var(--text-muted)] font-medium text-right">
                   {t('watchlist.marketValue')}
                 </th>
-                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-slate-500 font-medium text-right">
+                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-[var(--text-muted)] font-medium text-right">
                   {t('watchlist.gainLoss')}
                 </th>
-                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-slate-500 font-medium text-right">
+                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-[var(--text-muted)] font-medium text-right">
                   {t('watchlist.gainLoss')} %
                 </th>
-                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-slate-500 font-medium text-center">
+                <th className="px-4 py-3 text-[10px] uppercase tracking-wider text-[var(--text-muted)] font-medium text-center">
                   {t('watchlist.remove')}
                 </th>
               </tr>
@@ -189,20 +189,20 @@ function WatchlistRow({ company, position, language, onNavigate, onUpdatePositio
   };
 
   return (
-    <tr className="border-b border-slate-800/40 transition-colors hover:bg-white/[0.02]">
+    <tr className="border-b border-[var(--border-color)] transition-colors hover:bg-white/[0.02]">
       <td
         className="px-4 py-3 cursor-pointer"
         onClick={onNavigate}
       >
         <div className="flex items-center gap-2">
           <span className="text-lg">{company.logo}</span>
-          <span className="font-medium text-white hover:text-blue-400 transition-colors">
+          <span className="font-medium text-[var(--text-primary)] hover:text-blue-400 transition-colors">
             {company.name[language]}
           </span>
         </div>
       </td>
-      <td className="px-4 py-3 font-mono text-xs text-slate-400">{company.ticker}</td>
-      <td className="px-4 py-3 text-right font-medium text-white">
+      <td className="px-4 py-3 font-mono text-xs text-[var(--text-secondary)]">{company.ticker}</td>
+      <td className="px-4 py-3 text-right font-medium text-[var(--text-primary)]">
         {formatCurrency(company.stockPrice, company.currency)}
       </td>
       <td className="px-4 py-3 text-right">
@@ -220,12 +220,12 @@ function WatchlistRow({ company, position, language, onNavigate, onUpdatePositio
             onChange={(e) => setSharesValue(e.target.value)}
             onBlur={handleSharesSave}
             onKeyDown={(e) => e.key === 'Enter' && handleSharesSave()}
-            className="w-20 rounded border border-blue-500/50 bg-slate-900 px-2 py-1 text-right text-xs text-white outline-none"
+            className="w-20 rounded border border-blue-500/50 bg-[var(--bg-primary)] px-2 py-1 text-right text-xs text-[var(--text-primary)] outline-none"
             autoFocus
           />
         ) : (
           <span
-            className="cursor-pointer rounded px-2 py-1 text-slate-300 hover:bg-white/5 transition-colors"
+            className="cursor-pointer rounded px-2 py-1 text-[var(--text-primary)] hover:bg-white/5 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
               setSharesValue(String(position.shares));
@@ -244,12 +244,12 @@ function WatchlistRow({ company, position, language, onNavigate, onUpdatePositio
             onChange={(e) => setCostValue(e.target.value)}
             onBlur={handleCostSave}
             onKeyDown={(e) => e.key === 'Enter' && handleCostSave()}
-            className="w-24 rounded border border-blue-500/50 bg-slate-900 px-2 py-1 text-right text-xs text-white outline-none"
+            className="w-24 rounded border border-blue-500/50 bg-[var(--bg-primary)] px-2 py-1 text-right text-xs text-[var(--text-primary)] outline-none"
             autoFocus
           />
         ) : (
           <span
-            className="cursor-pointer rounded px-2 py-1 text-slate-300 hover:bg-white/5 transition-colors"
+            className="cursor-pointer rounded px-2 py-1 text-[var(--text-primary)] hover:bg-white/5 transition-colors"
             onClick={(e) => {
               e.stopPropagation();
               setCostValue(String(position.costBasis));
@@ -260,7 +260,7 @@ function WatchlistRow({ company, position, language, onNavigate, onUpdatePositio
           </span>
         )}
       </td>
-      <td className="px-4 py-3 text-right font-medium text-white">
+      <td className="px-4 py-3 text-right font-medium text-[var(--text-primary)]">
         {position.shares > 0 ? formatCurrency(marketValue, company.currency) : '--'}
       </td>
       <td className="px-4 py-3 text-right">
@@ -285,7 +285,7 @@ function WatchlistRow({ company, position, language, onNavigate, onUpdatePositio
             e.stopPropagation();
             onRemove();
           }}
-          className="rounded-lg p-1.5 text-slate-500 transition-colors hover:bg-red-500/10 hover:text-red-400 cursor-pointer"
+          className="rounded-lg p-1.5 text-[var(--text-muted)] transition-colors hover:bg-red-500/10 hover:text-red-400 cursor-pointer"
         >
           <Trash2 className="h-4 w-4" />
         </button>
